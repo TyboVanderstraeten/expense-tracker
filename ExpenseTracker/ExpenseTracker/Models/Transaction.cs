@@ -1,10 +1,12 @@
-﻿using System;
+﻿using SQLite;
+using System;
 
 namespace ExpenseTracker.Models
 {
-    public abstract class Transaction
+    public class Transaction
     {
         #region Properties
+        [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
         public TransactionType TransactionType { get; set; }
         public string Description { get; set; }
@@ -14,6 +16,11 @@ namespace ExpenseTracker.Models
         #endregion
 
         #region Constructors
+        public Transaction()
+        {
+
+        }
+
         public Transaction(TransactionType transactionType, string description, double amount, DateTime date, ExpenseType? expenseType = null)
         {
             TransactionType = transactionType;
