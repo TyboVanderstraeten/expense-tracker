@@ -11,7 +11,6 @@ namespace ExpenseTracker.ViewModels
         #region Properties
         public ObservableCollection<Transaction> Transactions { get; set; }
         public Command LoadTransactionsCommand { get; set; }
-        public Command SaveTransactionCommand { get; set; }
         public Command DeleteTransactionCommand { get; set; }
         #endregion
 
@@ -23,7 +22,6 @@ namespace ExpenseTracker.ViewModels
             Transactions = new ObservableCollection<Transaction>();
 
             LoadTransactionsCommand = new Command(async () => await ExecuteLoadTransactionsCommand());
-            SaveTransactionCommand = new Command(async (transaction) => await ExecuteSaveTransactionCommand((Transaction)transaction));
             DeleteTransactionCommand = new Command(async (transaction) => await ExecuteDeleteTransactionCommand((Transaction)transaction));
         }
         #endregion
@@ -45,19 +43,6 @@ namespace ExpenseTracker.ViewModels
             IsBusy = false;
         }
 
-        private async Task<int> ExecuteSaveTransactionCommand(Transaction transaction)
-        {
-            IsBusy = true;
-
-            int result = await App.Database.SaveTransactionAsync(transaction);
-
-            Transactions.Add(transaction);
-
-            IsBusy = false;
-
-            return result;
-        }
-
         private async Task<int> ExecuteDeleteTransactionCommand(Transaction transaction)
         {
             IsBusy = true;
@@ -65,6 +50,19 @@ namespace ExpenseTracker.ViewModels
             int result = await App.Database.DeleteTransactionAsync(transaction);
 
             Transactions.Remove(transaction);
+
+            IsBusy = false;
+
+            return result;
+        }
+
+        public async Task<int> SaveTransactionAsync(Transaction transaction)
+        {
+            IsBusy = true;
+
+            int result = await App.Database.SaveTransactionAsync(transaction);
+
+            Transactions.Add(transaction);
 
             IsBusy = false;
 

@@ -5,11 +5,25 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="ExpenseTracker.Views.NewTransactionPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
+        <ToolbarItem Text="Save" Clicked="Save_Clicked" />
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Spacing="20" Padding="15">
+            <Label Text="Transaction type"/>
+            <Picker x:Name="PickerTransactionType" ItemsSource="{Binding TransactionTypes}"/>
+
+            <Label Text="Description"/>
+            <Editor x:Name="EditorDescription" Margin="0"/>
+
+            <Label Text="Amount"/>
+            <Entry x:Name="EntryAmount" Keyboard="Numeric"/>
+
+            <Label Text="Date"/>
+            <DatePicker x:Name="DatePickerDate" Date="{x:Static system:DateTime.Today}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

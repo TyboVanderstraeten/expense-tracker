@@ -3,8 +3,18 @@
     public enum TransactionType
     {
         #region Values
-        INCOME,
-        EXPENSE 
+        TRAVEL,
+        ENTERTAINMENT,
+        SHOPPING,
+        EDUCATION,
+        SPORTS,
+        FOOD,
+        DRINKS,
+        DINING,
+        PUBS,
+        GIFTS,
+        OTHER,
+        INCOME
         #endregion
     }
 }

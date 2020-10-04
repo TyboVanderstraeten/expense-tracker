@@ -12,7 +12,6 @@ namespace ExpenseTracker.Models
         public string Description { get; set; }
         public double Amount { get; set; }
         public DateTime Date { get; set; }
-        public ExpenseType? ExpenseType { get; set; }
         #endregion
 
         #region Constructors
@@ -21,13 +20,12 @@ namespace ExpenseTracker.Models
 
         }
 
-        public Transaction(TransactionType transactionType, string description, double amount, DateTime date, ExpenseType? expenseType = null)
+        public Transaction(TransactionType transactionType, string description, double amount, DateTime date)
         {
             TransactionType = transactionType;
             Description = description;
             Amount = amount;
             Date = date;
-            ExpenseType = expenseType;
         }
         #endregion
     }
