@@ -23,14 +23,6 @@ namespace ExpenseTracker.Views
         #endregion
 
         #region Methods
-        private async void OnTransactionSelected(object sender, EventArgs args)
-        {
-            Transaction transaction = (Transaction)sender;
-            string title = $"{transaction.TransactionType} {transaction.ExpenseType}";
-            string message = $"{transaction.Description} {transaction.Amount} {transaction.Date}";
-            await DisplayAlert(title, message, "Cancel");
-        }
-
         private async void AddTransaction_Clicked(object sender,EventArgs args)
         {
             await Navigation.PushAsync(new NewTransactionPage());

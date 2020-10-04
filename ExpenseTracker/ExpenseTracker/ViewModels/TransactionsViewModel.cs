@@ -1,17 +1,25 @@
 ﻿using ExpenseTracker.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
 namespace ExpenseTracker.ViewModels
 {
     public class TransactionsViewModel : BaseViewModel
     {
+        #region Private fields
+        private double _balance;
+        #endregion
+
         #region Properties
         public ObservableCollection<Transaction> Transactions { get; set; }
-        public Command LoadTransactionsCommand { get; set; }
-        public Command DeleteTransactionCommand { get; set; }
+        public ICollection<TransactionType> TransactionTypes { get; set; }
+        public double Balance {
+            get { return _balance; }
+            set { SetProperty(ref _balance, value); }
+        }
         #endregion
 
         #region Constructors
@@ -20,17 +28,16 @@ namespace ExpenseTracker.ViewModels
             Title = "Transactions";
 
             Transactions = new ObservableCollection<Transaction>();
+            TransactionTypes = new List<TransactionType>();
 
-            LoadTransactionsCommand = new Command(async () => await ExecuteLoadTransactionsCommand());
-            DeleteTransactionCommand = new Command(async (transaction) => await ExecuteDeleteTransactionCommand((Transaction)transaction));
+            SeedTransactionTypes();
+            LoadTransactions();
         }
         #endregion
 
         #region Methods
-        private async Task ExecuteLoadTransactionsCommand()
+        private async void LoadTransactions()
         {
-            IsBusy = true;
-
             Transactions.Clear();
 
             List<Transaction> transactions = await App.Database.GetTransactionsAsync();
@@ -40,33 +47,40 @@ namespace ExpenseTracker.ViewModels
                 Transactions.Add(transaction);
             }
 
-            IsBusy = false;
+            CalculateBalance();
         }
 
-        private async Task<int> ExecuteDeleteTransactionCommand(Transaction transaction)
+        private void CalculateBalance()
         {
-            IsBusy = true;
-
-            int result = await App.Database.DeleteTransactionAsync(transaction);
-
-            Transactions.Remove(transaction);
-
-            IsBusy = false;
-
-            return result;
+            double expenseAmount = Transactions.Where(t => t.TransactionType != TransactionType.INCOME).Sum(t => t.Amount);
+            double incomeAmount = Transactions.Where(t => t.TransactionType == TransactionType.INCOME).Sum(t => t.Amount);
+            Balance = expenseAmount - incomeAmount;
         }
 
         public async Task<int> SaveTransactionAsync(Transaction transaction)
         {
-            IsBusy = true;
-
             int result = await App.Database.SaveTransactionAsync(transaction);
 
-            Transactions.Add(transaction);
-
-            IsBusy = false;
+            LoadTransactions();
 
             return result;
+        }
+
+        public async Task<int> DeleteTransaction(Transaction transaction)
+        {
+            int result = await App.Database.DeleteTransactionAsync(transaction);
+
+            LoadTransactions();
+
+            return result;
+        }
+
+        private void SeedTransactionTypes()
+        {
+            foreach (TransactionType transactionType in Enum.GetValues(typeof(TransactionType)))
+            {
+                TransactionTypes.Add(transactionType);
+            }
         }
         #endregion
     }

@@ -13,30 +13,31 @@ namespace ExpenseTracker.Views
         private readonly TransactionsViewModel _transactionsViewModel;
         #endregion
 
-        #region Properties
-        public Transaction Transaction { get; set; }
-        #endregion
-
         #region Constructors
         public NewTransactionPage()
         {
             InitializeComponent();
 
-            BindingContext = this;
-
-            _transactionsViewModel = new TransactionsViewModel();
+            BindingContext = _transactionsViewModel = new TransactionsViewModel();
         }
         #endregion
 
         #region Properties
         private async void Save_Clicked(object sender, EventArgs args)
         {
-            Transaction transaction = new Transaction(
-                    (TransactionType)PickerTransactionType.SelectedItem, EditorDescription.Text, Convert.ToDouble(EntryAmount.Text), DatePickerDate.Date
-                );
+            if (PickerTransactionType.SelectedItem == null || EditorDescription.Text == null || EntryAmount.Text == null || DatePickerDate.Date == null)
+            {
+                await DisplayAlert("Info", "All fields are required!", "Cancel");
+            }
+            else
+            {
+                Transaction transaction = new Transaction(
+                        (TransactionType)PickerTransactionType.SelectedItem, EditorDescription.Text, Convert.ToDouble(EntryAmount.Text), DatePickerDate.Date
+                    );
 
-            await _transactionsViewModel.SaveTransactionAsync(transaction);
-            await Navigation.PopAsync();
+                await _transactionsViewModel.SaveTransactionAsync(transaction);
+                await Navigation.PopAsync();
+            }
         }
 
         private async void Cancel_Clicked(object sender, EventArgs args)

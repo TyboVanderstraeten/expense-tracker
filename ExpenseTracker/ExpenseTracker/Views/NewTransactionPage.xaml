@@ -23,7 +23,7 @@
             <Entry x:Name="EntryAmount" Keyboard="Numeric"/>
 
             <Label Text="Date"/>
-            <DatePicker x:Name="DatePickerDate" Date="{x:Static system:DateTime.Today}"/>
+            <DatePicker x:Name="DatePickerDate"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

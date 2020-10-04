@@ -6,32 +6,34 @@
              mc:Ignorable="d"
              x:Class="ExpenseTracker.Views.TransactionsPage">
     <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{Binding Balance}"/>
         <ToolbarItem Text="Add" Clicked="AddTransaction_Clicked"/>
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}" Command="{Binding LoadTransactionsCommand}">
-            <CollectionView x:Name="CollectionViewTransactions" ItemsSource="{Binding Transactions}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout Padding="10">
-                            <Label Text="{Binding Description}" 
-                                d:Text="{Binding .}"
+        <CollectionView x:Name="CollectionViewTransactions" ItemsSource="{Binding Transactions}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding TransactionType}" 
                                 LineBreakMode="NoWrap" 
                                 Style="{DynamicResource ListItemTextStyle}" 
                                 FontSize="16" />
-                            <Label Text="{Binding Amount}" 
-                                d:Text="{Binding .}"
-                                LineBreakMode="NoWrap"
-                                Style="{DynamicResource ListItemDetailTextStyle}"
-                                FontSize="13" />
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnTransactionSelected"></TapGestureRecognizer>
-                            </StackLayout.GestureRecognizers>
+                            <Label Text="{Binding Date}" 
+                                   Style="{DynamicResource ListItemDetailTextStyle}"
+                                   FontSize="13" 
+                                   HorizontalOptions="End"/>
                         </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </RefreshView>
+                        <Label Text="{Binding Description}"
+                                   Style="{DynamicResource ListItemDetailTextStyle}"
+                                   FontSize="13"/>
+                        <Label Text="{Binding Amount}" 
+                                   Style="{DynamicResource ListItemDetailTextStyle}"
+                                   FontSize="13" />
+                      </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </ContentPage.Content>
 </ContentPage>
