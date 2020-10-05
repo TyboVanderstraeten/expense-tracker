@@ -8,9 +8,29 @@
              Title="{Binding Title}">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Balance:" />
+            <Label Text="{Binding Balance}" />
+            <Label Text="Expenses:" />
+            <Label Text="{Binding Expenses}" />
+            <Label Text="Income:" />
+            <Label Text="{Binding Income}" />
+            <Label Text="Expenses per category:" />
+
+            <CollectionView x:Name="CollectionViewTransactionTypes"
+                            ItemsSource="{Binding TransactionTypes}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10">
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding .}"
+                                       LineBreakMode="NoWrap"
+                                       Style="{DynamicResource ListItemTextStyle}"
+                                       FontSize="16" />
+                            </StackLayout>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
