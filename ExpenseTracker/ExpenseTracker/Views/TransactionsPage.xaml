@@ -9,10 +9,12 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="{Binding Balance}"/>
         <ToolbarItem Text="Add" Clicked="AddTransaction_Clicked"/>
+        <ToolbarItem Text="Delete"
+                     Clicked="DeleteTransaction_Clicked" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <CollectionView x:Name="CollectionViewTransactions" ItemsSource="{Binding Transactions}">
+        <CollectionView x:Name="CollectionViewTransactions" ItemsSource="{Binding Transactions}" SelectionMode="Multiple">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <StackLayout Padding="10">
@@ -29,14 +31,10 @@
                         <Label Text="{Binding Description}"
                                    Style="{DynamicResource ListItemDetailTextStyle}"
                                    FontSize="13"/>
-                        <Label Text="{Binding Amount}" 
-                                   Style="{DynamicResource ListItemDetailTextStyle}"
-                                   FontSize="13" />
-                        <Button Text="Delete"
-                                Style="{DynamicResource ListItemDetailTextStyle}"
-                                FontSize="13"
-                                Clicked="DeleteTransaction_Clicked"/>
-                    </StackLayout>
+                                <Label Text="{Binding Amount}"
+                                       Style="{DynamicResource ListItemDetailTextStyle}"
+                                       FontSize="13" />
+                            </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

@@ -1,6 +1,8 @@
 ﻿using ExpenseTracker.Models;
 using ExpenseTracker.ViewModels;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -23,15 +25,30 @@ namespace ExpenseTracker.Views
         #endregion
 
         #region Methods
-        private async void AddTransaction_Clicked(object sender,EventArgs args)
+        private async void AddTransaction_Clicked(object sender, EventArgs args)
         {
             await Navigation.PushAsync(new NewTransactionPage(_transactionsViewModel));
         }
 
         private async void DeleteTransaction_Clicked(object sender, EventArgs args)
         {
-            object s = sender;
-            await _transactionsViewModel.DeleteTransaction((Transaction)sender);
+            if (CollectionViewTransactions.SelectedItems.Count != 0)
+            {
+                List<Transaction> transactions = CollectionViewTransactions.SelectedItems.Cast<Transaction>().ToList();
+                bool answer = await DisplayAlert("Confirmation", "Are you sure you want to delete these transactions?", "Yes", "No");
+                if (answer)
+                {
+                    foreach (Transaction transaction in transactions)
+                    {
+                        await _transactionsViewModel.DeleteTransaction(transaction);
+                    }
+                    CollectionViewTransactions.SelectedItems.Clear();
+                }
+            }
+            else
+            {
+                await DisplayAlert("Info", "No transactions selected!", "Cancel");
+            }
         }
         #endregion
     }
