@@ -10,13 +10,15 @@ namespace ExpenseTracker.ViewModels
     public class TransactionsViewModel : BaseViewModel
     {
         #region Private fields
-        private double _balance;
+        private decimal _balance;
         #endregion
 
         #region Properties
         public ObservableCollection<Transaction> Transactions { get; set; }
+
         public ICollection<TransactionType> TransactionTypes { get; set; }
-        public double Balance {
+
+        public decimal Balance {
             get { return _balance; }
             set { SetProperty(ref _balance, value); }
         }
@@ -36,6 +38,14 @@ namespace ExpenseTracker.ViewModels
         #endregion
 
         #region Methods
+        private void SeedTransactionTypes()
+        {
+            foreach (TransactionType transactionType in Enum.GetValues(typeof(TransactionType)))
+            {
+                TransactionTypes.Add(transactionType);
+            }
+        }
+
         private async void LoadTransactions()
         {
             Transactions.Clear();
@@ -52,8 +62,8 @@ namespace ExpenseTracker.ViewModels
 
         private void CalculateBalance()
         {
-            double expenseAmount = Transactions.Where(t => t.TransactionType != TransactionType.INCOME).Sum(t => t.Amount);
-            double incomeAmount = Transactions.Where(t => t.TransactionType == TransactionType.INCOME).Sum(t => t.Amount);
+            decimal expenseAmount = Transactions.Where(t => t.TransactionType != TransactionType.INCOME).Sum(t => t.Amount);
+            decimal incomeAmount = Transactions.Where(t => t.TransactionType == TransactionType.INCOME).Sum(t => t.Amount);
             Balance = expenseAmount - incomeAmount;
         }
 
@@ -61,7 +71,9 @@ namespace ExpenseTracker.ViewModels
         {
             int result = await App.Database.SaveTransactionAsync(transaction);
 
-            LoadTransactions();
+            Transactions.Add(transaction);
+
+            CalculateBalance();
 
             return result;
         }
@@ -70,17 +82,11 @@ namespace ExpenseTracker.ViewModels
         {
             int result = await App.Database.DeleteTransactionAsync(transaction);
 
-            LoadTransactions();
+            Transactions.Remove(transaction);
+
+            CalculateBalance();
 
             return result;
-        }
-
-        private void SeedTransactionTypes()
-        {
-            foreach (TransactionType transactionType in Enum.GetValues(typeof(TransactionType)))
-            {
-                TransactionTypes.Add(transactionType);
-            }
         }
         #endregion
     }

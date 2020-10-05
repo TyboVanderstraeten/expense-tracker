@@ -14,15 +14,15 @@ namespace ExpenseTracker.Views
         #endregion
 
         #region Constructors
-        public NewTransactionPage()
+        public NewTransactionPage(TransactionsViewModel transactionsViewModel)
         {
             InitializeComponent();
 
-            BindingContext = _transactionsViewModel = new TransactionsViewModel();
+            BindingContext = _transactionsViewModel = transactionsViewModel;
         }
         #endregion
 
-        #region Properties
+        #region Methods
         private async void Save_Clicked(object sender, EventArgs args)
         {
             if (PickerTransactionType.SelectedItem == null || EditorDescription.Text == null || EntryAmount.Text == null || DatePickerDate.Date == null)
@@ -32,7 +32,7 @@ namespace ExpenseTracker.Views
             else
             {
                 Transaction transaction = new Transaction(
-                        (TransactionType)PickerTransactionType.SelectedItem, EditorDescription.Text, Convert.ToDouble(EntryAmount.Text), DatePickerDate.Date
+                        (TransactionType)PickerTransactionType.SelectedItem, EditorDescription.Text, Convert.ToDecimal(EntryAmount.Text), DatePickerDate.Date
                     );
 
                 await _transactionsViewModel.SaveTransactionAsync(transaction);

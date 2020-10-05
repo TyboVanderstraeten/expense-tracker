@@ -4,7 +4,8 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="ExpenseTracker.Views.TransactionsPage">
+             x:Class="ExpenseTracker.Views.TransactionsPage"
+             Title="{Binding Title}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="{Binding Balance}"/>
         <ToolbarItem Text="Add" Clicked="AddTransaction_Clicked"/>
@@ -31,7 +32,11 @@
                         <Label Text="{Binding Amount}" 
                                    Style="{DynamicResource ListItemDetailTextStyle}"
                                    FontSize="13" />
-                      </StackLayout>
+                        <Button Text="Delete"
+                                Style="{DynamicResource ListItemDetailTextStyle}"
+                                FontSize="13"
+                                Clicked="DeleteTransaction_Clicked"/>
+                    </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

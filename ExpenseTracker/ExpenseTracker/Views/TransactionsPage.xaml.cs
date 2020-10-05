@@ -25,7 +25,13 @@ namespace ExpenseTracker.Views
         #region Methods
         private async void AddTransaction_Clicked(object sender,EventArgs args)
         {
-            await Navigation.PushAsync(new NewTransactionPage());
+            await Navigation.PushAsync(new NewTransactionPage(_transactionsViewModel));
+        }
+
+        private async void DeleteTransaction_Clicked(object sender, EventArgs args)
+        {
+            object s = sender;
+            await _transactionsViewModel.DeleteTransaction((Transaction)sender);
         }
         #endregion
     }

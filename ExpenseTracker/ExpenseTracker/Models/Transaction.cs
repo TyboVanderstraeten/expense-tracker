@@ -10,7 +10,7 @@ namespace ExpenseTracker.Models
         public int ID { get; set; }
         public TransactionType TransactionType { get; set; }
         public string Description { get; set; }
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
         public DateTime Date { get; set; }
         #endregion
 
@@ -20,7 +20,7 @@ namespace ExpenseTracker.Models
 
         }
 
-        public Transaction(TransactionType transactionType, string description, double amount, DateTime date)
+        public Transaction(TransactionType transactionType, string description, decimal amount, DateTime date)
         {
             TransactionType = transactionType;
             Description = description;
