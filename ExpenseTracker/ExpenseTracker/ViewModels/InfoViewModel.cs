@@ -20,6 +20,8 @@ namespace ExpenseTracker.ViewModels
          */
         public ObservableCollection<TransactionType> TransactionTypes { get; set; }
 
+        public IDictionary<TransactionType, decimal> TransactionTypesWithAmounts { get; set; }
+
         public decimal Balance
         {
             get { return _balance; }
@@ -45,6 +47,7 @@ namespace ExpenseTracker.ViewModels
             Title = "Info";
 
             TransactionTypes = new ObservableCollection<TransactionType>();
+            TransactionTypesWithAmounts = new Dictionary<TransactionType, decimal>();
 
             LoadTransactionData();
             LoadTransactionTypes();
@@ -61,11 +64,14 @@ namespace ExpenseTracker.ViewModels
             Balance = Expenses - Income;
         }
 
-        private void LoadTransactionTypes()
+        private async void LoadTransactionTypes()
         {
+            List<Transaction> transactions = await App.Database.GetTransactionsAsync();
+
             foreach (TransactionType transactionType in Enum.GetValues(typeof(TransactionType)))
             {
                 TransactionTypes.Add(transactionType);
+                TransactionTypesWithAmounts.Add(transactionType, transactions.Where(t => t.TransactionType == transactionType).Sum(t => t.Amount));
             }
         }
         #endregion
