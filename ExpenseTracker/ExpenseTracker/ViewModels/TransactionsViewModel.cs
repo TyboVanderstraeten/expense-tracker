@@ -15,10 +15,10 @@ namespace ExpenseTracker.ViewModels
 
         #region Properties
         public ObservableCollection<Transaction> Transactions { get; set; }
-
         public ICollection<TransactionType> TransactionTypes { get; set; }
 
-        public decimal Balance {
+        public decimal Balance
+        {
             get { return _balance; }
             set { SetProperty(ref _balance, value); }
         }
@@ -32,13 +32,13 @@ namespace ExpenseTracker.ViewModels
             Transactions = new ObservableCollection<Transaction>();
             TransactionTypes = new List<TransactionType>();
 
-            SeedTransactionTypes();
+            LoadTransactionTypes();
             LoadTransactions();
         }
         #endregion
 
         #region Methods
-        private void SeedTransactionTypes()
+        private void LoadTransactionTypes()
         {
             foreach (TransactionType transactionType in Enum.GetValues(typeof(TransactionType)))
             {
@@ -52,6 +52,8 @@ namespace ExpenseTracker.ViewModels
 
             List<Transaction> transactions = await App.Database.GetTransactionsAsync();
 
+            transactions = transactions.OrderByDescending(t => t.Date).ToList();
+
             foreach (Transaction transaction in transactions)
             {
                 Transactions.Add(transaction);
@@ -60,7 +62,7 @@ namespace ExpenseTracker.ViewModels
             CalculateBalance();
         }
 
-        private void CalculateBalance()
+        public void CalculateBalance()
         {
             decimal expenseAmount = Transactions.Where(t => t.TransactionType != TransactionType.INCOME).Sum(t => t.Amount);
             decimal incomeAmount = Transactions.Where(t => t.TransactionType == TransactionType.INCOME).Sum(t => t.Amount);
@@ -73,8 +75,6 @@ namespace ExpenseTracker.ViewModels
 
             Transactions.Add(transaction);
 
-            CalculateBalance();
-
             return result;
         }
 
@@ -83,8 +83,6 @@ namespace ExpenseTracker.ViewModels
             int result = await App.Database.DeleteTransactionAsync(transaction);
 
             Transactions.Remove(transaction);
-
-            CalculateBalance();
 
             return result;
         }

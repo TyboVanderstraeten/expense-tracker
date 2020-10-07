@@ -12,6 +12,7 @@ namespace ExpenseTracker.Models
         public string Description { get; set; }
         public decimal Amount { get; set; }
         public DateTime Date { get; set; }
+        public string ImageUrl { get { return $"{TransactionType}.png"; } }
         #endregion
 
         #region Constructors

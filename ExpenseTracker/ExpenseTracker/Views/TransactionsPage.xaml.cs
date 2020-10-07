@@ -27,7 +27,7 @@ namespace ExpenseTracker.Views
         #region Methods
         private async void AddTransaction_Clicked(object sender, EventArgs args)
         {
-            await Navigation.PushAsync(new NewTransactionPage(_transactionsViewModel));
+            await Navigation.PushAsync(new NewTransactionPage(_transactionsViewModel),true);
         }
 
         private async void DeleteTransaction_Clicked(object sender, EventArgs args)
@@ -35,14 +35,19 @@ namespace ExpenseTracker.Views
             if (CollectionViewTransactions.SelectedItems.Count != 0)
             {
                 List<Transaction> transactions = CollectionViewTransactions.SelectedItems.Cast<Transaction>().ToList();
+
                 bool answer = await DisplayAlert("Confirmation", "Are you sure you want to delete these transactions?", "Yes", "No");
+
                 if (answer)
                 {
                     foreach (Transaction transaction in transactions)
                     {
                         await _transactionsViewModel.DeleteTransaction(transaction);
                     }
+
                     CollectionViewTransactions.SelectedItems.Clear();
+
+                    _transactionsViewModel.CalculateBalance();
                 }
             }
             else

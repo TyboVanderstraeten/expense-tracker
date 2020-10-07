@@ -3,38 +3,68 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:ExpenseTracker.Converters"
              mc:Ignorable="d"
              x:Class="ExpenseTracker.Views.TransactionsPage"
              Title="{Binding Title}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ValutaConverter x:Key="Valuta" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="{Binding Balance}"/>
-        <ToolbarItem Text="Add" Clicked="AddTransaction_Clicked"/>
+        <ToolbarItem Text="{Binding Balance,Converter={StaticResource Valuta}}" />
+        <ToolbarItem Text="Add"
+                     Clicked="AddTransaction_Clicked" />
         <ToolbarItem Text="Delete"
                      Clicked="DeleteTransaction_Clicked" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <CollectionView x:Name="CollectionViewTransactions" ItemsSource="{Binding Transactions}" SelectionMode="Multiple">
+        <CollectionView x:Name="CollectionViewTransactions"
+                        ItemsSource="{Binding Transactions}"
+                        SelectionMode="Multiple" VerticalScrollBarVisibility="Always">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="10">
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding TransactionType}" 
-                                LineBreakMode="NoWrap" 
-                                Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="16" />
-                            <Label Text="{Binding Date}" 
-                                   Style="{DynamicResource ListItemDetailTextStyle}"
-                                   FontSize="13" 
-                                   HorizontalOptions="End"/>
-                        </StackLayout>
+                    <Grid Margin="0,7.5,0,7.5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="6*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="4*" />
+                        </Grid.RowDefinitions>
+                        <Image Grid.RowSpan="2"
+                               VerticalOptions="Center"
+                               Source="{Binding ImageUrl}"
+                               Aspect="AspectFit"
+                               Margin="5"
+                               HeightRequest="60"
+                               WidthRequest="60" />
+
+                        <Label Grid.Column="1"
+                               Grid.Row="0" 
+                               Text="{Binding Date,StringFormat='{0:d MMMM}'}"
+                               FontSize="Subtitle" />
+
                         <Label Text="{Binding Description}"
-                                   Style="{DynamicResource ListItemDetailTextStyle}"
-                                   FontSize="13"/>
-                                <Label Text="{Binding Amount}"
-                                       Style="{DynamicResource ListItemDetailTextStyle}"
-                                       FontSize="13" />
-                            </StackLayout>
+                               Grid.Column="1"
+                               Grid.Row="1"
+                               FontSize="Body"  />
+
+                        <Label Text="{Binding Amount,Converter={StaticResource Valuta}}"
+                               Grid.Column="2"
+                               HorizontalOptions="Center"
+                               Grid.Row="0"
+                               Grid.RowSpan="2"
+                               VerticalOptions="Center"
+                               FontSize="Large"
+                               FontAttributes="Bold" />
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

@@ -15,7 +15,7 @@ namespace ExpenseTracker.Data
                 App.Database.SaveTransactionAsync(
                     new Transaction(
                         (TransactionType)values.GetValue(random.Next(values.Length)),
-                        "test", random.Next(0, 100),
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", random.Next(0, 100),
                         DateTime.Now.AddDays(-i)));
             }
         }
