@@ -14,13 +14,41 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Margin="15">
-            <Label Text="Balance:" />
-            <Label Text="{Binding Balance,Converter={StaticResource Valuta}}" />
-            <Label Text="Expenses:" />
-            <Label Text="{Binding Expenses,Converter={StaticResource Valuta}}" />
-            <Label Text="Income:" />
-            <Label Text="{Binding Income,Converter={StaticResource Valuta}}" />
-            <Label Text="Expenses per category:" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Picker Title="Month" x:Name="Month" SelectedItem="{Binding Month,Mode=TwoWay}"
+                        HorizontalOptions="FillAndExpand">
+                    <Picker.Items>
+                        <x:String>All</x:String>
+                        <x:String>January</x:String>
+                        <x:String>February</x:String>
+                        <x:String>March</x:String>
+                        <x:String>April</x:String>
+                        <x:String>May</x:String>
+                        <x:String>June</x:String>
+                        <x:String>July</x:String>
+                        <x:String>August</x:String>
+                        <x:String>September</x:String>
+                        <x:String>October</x:String>
+                        <x:String>November</x:String>
+                        <x:String>December</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Picker x:Name="Year"
+                        Title="Year"
+                        HorizontalOptions="FillAndExpand"
+                        ItemsSource="{Binding Years}"
+                        SelectedItem="{Binding Year,Mode=TwoWay}" />
+
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Label Text="Balance:"/>
+                <Label Text="{Binding Balance,Converter={StaticResource Valuta}}" />
+                <Label Text="Expenses:" />
+                <Label Text="{Binding Expenses,Converter={StaticResource Valuta}}" />
+                <Label Text="Income:" />
+                <Label Text="{Binding Income,Converter={StaticResource Valuta}}" />
+            </StackLayout>
+            <Label Text="CATEGORIES" />
 
             <CollectionView x:Name="CollectionViewTransactionTypes"
                             ItemsSource="{Binding TransactionTypesWithAmounts}" Margin="15">

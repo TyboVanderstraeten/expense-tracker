@@ -9,6 +9,9 @@ namespace ExpenseTracker.ViewModels
     public class InfoViewModel : BaseViewModel
     {
         #region Private fields
+        private string _month;
+        private int _year;
+
         private decimal _balance;
         private decimal _expenses;
         private decimal _income;
@@ -18,27 +21,15 @@ namespace ExpenseTracker.ViewModels
         /*
          * DICTIONARY, cat name  + balance
          */
-        public ObservableCollection<TransactionType> TransactionTypes { get; set; }
+        public ObservableCollection<TransactionType> TransactionTypes { get; }
+        public ObservableCollection<int> Years { get; }
+        public IDictionary<TransactionType, decimal> TransactionTypesWithAmounts { get; }
 
-        public IDictionary<TransactionType, decimal> TransactionTypesWithAmounts { get; set; }
-
-        public decimal Balance
-        {
-            get { return _balance; }
-            set { SetProperty(ref _balance, value); }
-        }
-
-        public decimal Expenses
-        {
-            get { return _expenses; }
-            set { SetProperty(ref _expenses, value); }
-        }
-
-        public decimal Income
-        {
-            get { return _income; }
-            set { SetProperty(ref _income, value); }
-        }
+        public string Month { get { return _month; } set { SetProperty(ref _month, value); } }
+        public int Year { get { return _year; } set { SetProperty(ref _year, value); } }
+        public decimal Balance { get { return _balance; } set { SetProperty(ref _balance, value); } }
+        public decimal Expenses { get { return _expenses; } set { SetProperty(ref _expenses, value); } }
+        public decimal Income { get { return _income; } set { SetProperty(ref _income, value); } }
         #endregion
 
         #region Constructors
@@ -47,10 +38,12 @@ namespace ExpenseTracker.ViewModels
             Title = "Info";
 
             TransactionTypes = new ObservableCollection<TransactionType>();
+            Years = new ObservableCollection<int>();
             TransactionTypesWithAmounts = new Dictionary<TransactionType, decimal>();
 
             LoadTransactionData();
             LoadTransactionTypes();
+            LoadYears();
         }
         #endregion
 
@@ -72,6 +65,16 @@ namespace ExpenseTracker.ViewModels
             {
                 TransactionTypes.Add(transactionType);
                 TransactionTypesWithAmounts.Add(transactionType, transactions.Where(t => t.TransactionType == transactionType).Sum(t => t.Amount));
+            }
+        }
+
+        private void LoadYears()
+        {
+            int currentYear = DateTime.Now.Year;
+
+            for (int i = 0; i <= 20; i++)
+            {
+                Years.Add(currentYear + i);
             }
         }
         #endregion
