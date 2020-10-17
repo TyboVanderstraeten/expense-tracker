@@ -19,5 +19,17 @@ namespace ExpenseTracker.Views
             BindingContext = _infoViewModel = new InfoViewModel();
         }
         #endregion
+
+        #region Methods
+        private async void Month_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            await _infoViewModel.OnMonthSelected();
+        }
+
+        private void Year_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            _infoViewModel.OnYearSelected();
+        }
+        #endregion
     }
 }

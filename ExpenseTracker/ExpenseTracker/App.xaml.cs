@@ -32,7 +32,7 @@ namespace ExpenseTracker
             /*
              * TO REMOVE
              */
-            DataSeeder.SeedDB();
+            //DataSeeder.SeedDB();
         }
         #endregion
 

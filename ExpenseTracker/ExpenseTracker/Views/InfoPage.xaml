@@ -16,7 +16,7 @@
         <StackLayout Margin="15">
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                 <Picker Title="Month" x:Name="Month" SelectedItem="{Binding Month,Mode=TwoWay}"
-                        HorizontalOptions="FillAndExpand">
+                        HorizontalOptions="FillAndExpand" SelectedIndexChanged="Month_SelectedIndexChanged">
                     <Picker.Items>
                         <x:String>All</x:String>
                         <x:String>January</x:String>
@@ -37,7 +37,7 @@
                         Title="Year"
                         HorizontalOptions="FillAndExpand"
                         ItemsSource="{Binding Years}"
-                        SelectedItem="{Binding Year,Mode=TwoWay}" />
+                        SelectedItem="{Binding Year,Mode=TwoWay}" SelectedIndexChanged="Year_SelectedIndexChanged" />
 
             </StackLayout>
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
@@ -51,7 +51,7 @@
             <Label Text="CATEGORIES" />
 
             <CollectionView x:Name="CollectionViewTransactionTypes"
-                            ItemsSource="{Binding TransactionTypesWithAmounts}" Margin="15">
+                            ItemsSource="{Binding TransactionTypesWithAmounts,Mode=TwoWay}" Margin="15">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame Margin="15" HorizontalOptions="FillAndExpand" VerticalOptions="Start" CornerRadius="25">
@@ -59,7 +59,7 @@
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="{Binding Key}"
                                        FontSize="16" />
-                                <Label Text="{Binding Value,Converter={StaticResource Valuta}}}"
+                                <Label Text="{Binding Value,Converter={StaticResource Valuta}}"
                                        FontSize="16" />
                             </StackLayout>
                         </StackLayout>
