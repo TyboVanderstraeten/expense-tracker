@@ -10,7 +10,7 @@ namespace ExpenseTracker.ViewModels
     public class TransactionsViewModel : BaseViewModel
     {
         #region Private fields
-        private Month _month = Month.ALL;
+        private Month _month = (Month)DateTime.Now.Month;
         private int _year = DateTime.Now.Year;
 
         private decimal _balance;
@@ -69,7 +69,7 @@ namespace ExpenseTracker.ViewModels
 
         private void LoadTransactionTypes()
         {
-            foreach(TransactionType transactionType in Enum.GetValues(typeof(TransactionType)))
+            foreach (TransactionType transactionType in Enum.GetValues(typeof(TransactionType)))
             {
                 TransactionTypes.Add(transactionType);
             }
@@ -94,7 +94,7 @@ namespace ExpenseTracker.ViewModels
 
             Transactions.Clear();
 
-            foreach(Transaction transaction in transactions.OrderByDescending(t=>t.Date))
+            foreach (Transaction transaction in transactions.OrderByDescending(t => t.Date))
             {
                 Transactions.Add(transaction);
             }
