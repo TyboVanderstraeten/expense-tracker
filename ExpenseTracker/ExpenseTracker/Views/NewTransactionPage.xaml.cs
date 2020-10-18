@@ -20,7 +20,7 @@ namespace ExpenseTracker.Views
 
             BindingContext = _transactionsViewModel = transactionsViewModel;
 
-            EditorDescription.Text = "No description";
+            EntryDescription.Text = "No description";
         }
         #endregion
 
@@ -32,13 +32,13 @@ namespace ExpenseTracker.Views
 
         private async void ButtonSave_Clicked(object sender, EventArgs args)
         {
-            if (PickerTransactionType.SelectedItem == null || EditorDescription.Text == null || EntryAmount.Text == null || DatePickerDate.Date == null)
+            if (PickerTransactionType.SelectedItem == null || EntryDescription.Text == null || EntryAmount.Text == null || DatePickerDate.Date == null)
             {
                 await DisplayAlert("Info", "All fields are required!", "Cancel");
             }
             else
             {
-                Transaction transaction = new Transaction((TransactionType)PickerTransactionType.SelectedItem, EditorDescription.Text, Convert.ToDecimal(EntryAmount.Text), DatePickerDate.Date);
+                Transaction transaction = new Transaction((TransactionType)PickerTransactionType.SelectedItem, EntryDescription.Text, Convert.ToDecimal(EntryAmount.Text), DatePickerDate.Date);
 
                 await _transactionsViewModel.SaveTransactionAsync(transaction);
                 await _transactionsViewModel.FilterData();

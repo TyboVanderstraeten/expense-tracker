@@ -21,6 +21,7 @@ namespace ExpenseTracker.ViewModels
         #region Properties
         public ObservableCollection<Month> Months { get; }
         public ObservableCollection<int> Years { get; }
+        public ObservableCollection<CategoryInfo> CategoryInfos { get; }
 
         public Month Month { get { return _month; } set { SetProperty(ref _month, value); } }
         public int Year { get { return _year; } set { SetProperty(ref _year, value); } }
@@ -37,6 +38,7 @@ namespace ExpenseTracker.ViewModels
 
             Months = new ObservableCollection<Month>();
             Years = new ObservableCollection<int>();
+            CategoryInfos = new ObservableCollection<CategoryInfo>();
 
             LoadMonths();
             LoadYears();
@@ -78,6 +80,20 @@ namespace ExpenseTracker.ViewModels
             Expenses = transactions.Where(t => t.TransactionType != TransactionType.INCOME).Sum(t => t.Amount);
             Income = transactions.Where(t => t.TransactionType == TransactionType.INCOME).Sum(t => t.Amount);
             Balance = Expenses - Income;
+
+            List<CategoryInfo> categoryInfos = new List<CategoryInfo>();
+
+            foreach (TransactionType transactionType in Enum.GetValues(typeof(TransactionType)))
+            {
+               categoryInfos.Add(new CategoryInfo(transactionType, transactions.Where(t => t.TransactionType == transactionType).Sum(t => t.Amount)));
+            }
+
+            CategoryInfos.Clear();
+
+            foreach(CategoryInfo categoryInfo in categoryInfos.OrderByDescending(ci => ci.Amount))
+            {
+                CategoryInfos.Add(categoryInfo);
+            }
         }
         #endregion
     }

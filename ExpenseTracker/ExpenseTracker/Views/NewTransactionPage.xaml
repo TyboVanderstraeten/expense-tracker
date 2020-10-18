@@ -19,11 +19,13 @@
                     ItemsSource="{Binding TransactionTypes}"/>
 
             <Label Text="Description *"/>
-            <Editor x:Name="EditorDescription"/>
+            <Entry x:Name="EntryDescription"
+                   ClearButtonVisibility="WhileEditing"/>
 
             <Label Text="Amount *"/>
             <Entry x:Name="EntryAmount" 
-                   Keyboard="Numeric"/>
+                   Keyboard="Numeric"
+                   ClearButtonVisibility="WhileEditing"/>
 
             <Label Text="Date *"/>
             <DatePicker x:Name="DatePickerDate"/>

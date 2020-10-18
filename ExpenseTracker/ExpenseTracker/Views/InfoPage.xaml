@@ -21,9 +21,10 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout Margin="15">
+        <StackLayout >
             <StackLayout Orientation="Horizontal" 
-                         HorizontalOptions="FillAndExpand">
+                         HorizontalOptions="FillAndExpand"
+                         Margin="15">
                 <Picker x:Name="PickerMonth" 
                         Title="Month"  
                         HorizontalOptions="FillAndExpand"
@@ -39,6 +40,53 @@
                         Text="Filter" 
                         Clicked="ButtonFilter_Clicked"></Button>
             </StackLayout>
+            <CollectionView x:Name="CollectionViewCategoryInfos"
+                            ItemsSource="{Binding CategoryInfos}"
+                            VerticalScrollBarVisibility="Always">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame  BackgroundColor="Transparent">
+                        <Frame CornerRadius="15" HasShadow="True">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="8*" />
+                                <ColumnDefinition Width="3*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Image Grid.Column="0"
+                                   Grid.Row="0"
+                               VerticalOptions="Center"
+                               Aspect="AspectFit"
+                               HeightRequest="60"
+                               WidthRequest="60"
+                               Source="{Binding ImageUrl}"/>
+
+                            <Label Text="{Binding TransactionType}"
+                                   Grid.Column="1"
+                                   Grid.Row="0"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   FontSize="Large"
+                                   FontAttributes="Bold"/>
+
+                            <Label Text="{Binding Amount, Converter={StaticResource Valuta}}"
+                               Grid.Column="2"
+                               HorizontalOptions="Center"
+                               Grid.Row="0"
+                               VerticalOptions="Center"
+                               FontSize="Large"
+                               FontAttributes="Bold" 
+                               TextColor="{Binding TextColor}"
+                              />
+                        </Grid>
+                            </Frame>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
