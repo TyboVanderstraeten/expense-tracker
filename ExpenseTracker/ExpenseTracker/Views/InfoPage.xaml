@@ -11,13 +11,16 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:ValutaConverter x:Key="Valuta" />
+            <local:BalanceConverter x:Key="Balance" />
+            <local:ExpensesConverter x:Key="Expenses" />
+            <local:IncomeConverter x:Key="Income" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="{Binding Balance, Converter={StaticResource Valuta}}" />
-        <ToolbarItem Text="{Binding Expenses, Converter={StaticResource Valuta}}" />
-        <ToolbarItem Text="{Binding Income, Converter={StaticResource Valuta}}" />
+        <ToolbarItem Text="{Binding Balance, Converter={StaticResource Balance}}" />
+        <ToolbarItem Text="{Binding Expenses, Converter={StaticResource Expenses}}" />
+        <ToolbarItem Text="{Binding Income, Converter={StaticResource Income}}" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
@@ -46,11 +49,11 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame  BackgroundColor="Transparent">
-                        <Frame CornerRadius="15" HasShadow="True">
+                        <Frame CornerRadius="5" HasShadow="True">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*" />
-                                <ColumnDefinition Width="8*" />
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="9*" />
                                 <ColumnDefinition Width="3*" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
@@ -69,7 +72,7 @@
                                    Grid.Row="0"
                                    HorizontalOptions="Center"
                                    VerticalOptions="Center"
-                                   FontSize="Large"
+                                   FontSize="Medium"
                                    FontAttributes="Bold"/>
 
                             <Label Text="{Binding Amount, Converter={StaticResource Valuta}}"
@@ -77,7 +80,6 @@
                                HorizontalOptions="Center"
                                Grid.Row="0"
                                VerticalOptions="Center"
-                               FontSize="Large"
                                FontAttributes="Bold" 
                                TextColor="{Binding TextColor}"
                               />

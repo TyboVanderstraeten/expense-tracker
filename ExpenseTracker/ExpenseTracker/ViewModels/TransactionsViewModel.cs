@@ -97,7 +97,7 @@ namespace ExpenseTracker.ViewModels
 
             Expenses = transactions.Where(t => t.TransactionType != TransactionType.INCOME).Sum(t => t.Amount);
             Income = transactions.Where(t => t.TransactionType == TransactionType.INCOME).Sum(t => t.Amount);
-            Balance = Expenses - Income;
+            Balance = Income - Expenses;
         }
 
         public async Task<int> SaveTransactionAsync(Transaction transaction)

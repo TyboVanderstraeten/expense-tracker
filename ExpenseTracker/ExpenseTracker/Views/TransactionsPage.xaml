@@ -11,11 +11,12 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:ValutaConverter x:Key="Valuta" />
+            <local:BalanceConverter x:Key="Balance" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="{Binding Balance, Converter={StaticResource Valuta}}" />
+        <ToolbarItem Text="{Binding Balance, Converter={StaticResource Balance}}" />
         <ToolbarItem Text="Add"
                      Clicked="ButtonAddTransaction_Clicked" />
         <ToolbarItem Text="Delete"
@@ -23,9 +24,10 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout Margin="15">
+        <StackLayout >
             <StackLayout Orientation="Horizontal" 
-                         HorizontalOptions="FillAndExpand">
+                         HorizontalOptions="FillAndExpand"
+                         Margin="15">
                 <Picker x:Name="PickerMonth" 
                         Title="Month"  
                         HorizontalOptions="FillAndExpand"
@@ -46,48 +48,56 @@
                             SelectionMode="Multiple"
                             VerticalScrollBarVisibility="Always">
                 <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
+                    <DataTemplate>
+                        <Frame BackgroundColor="Transparent" VerticalOptions="StartAndExpand" HorizontalOptions="Start">
+                            <Frame CornerRadius="5" HasShadow="True">
+                                <StackLayout Orientation="Vertical">
+                        <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="6*" />
-                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="9*" />
+                            <ColumnDefinition Width="3*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="4*" />
                         </Grid.RowDefinitions>
                         <Image Grid.Column="0"
-                               Grid.RowSpan="2"
                                VerticalOptions="Center"
+                               HorizontalOptions="Center"
                                Aspect="AspectFit"
                                HeightRequest="60"
                                WidthRequest="60"
                                Source="{Binding ImageUrl}"/>
 
-                        <Label Grid.Column="1"
-                               Grid.Row="0" 
+                            <StackLayout Orientation="Vertical" Grid.Column="1" Grid.Row="0">
+                        <Label 
+      
                                Text="{Binding Date, StringFormat='{0:d MMMM yyyy}'}"
                                FontSize="Subtitle"
-                               FontAttributes="Bold"/>
+                               FontAttributes="Bold"  VerticalOptions="Center"
+                               HorizontalOptions="Center"/>
 
-                            <Label Grid.Column="1"
-                                   Grid.Row="1"
-                                   Text="{Binding Description}"
+                            <Label
+                        VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                                   Text="{Binding Description}" HorizontalTextAlignment="Center"
                                    FontSize="Body"/>
+                            </StackLayout>
 
                             <Label Text="{Binding Amount, Converter={StaticResource Valuta}}"
                                Grid.Column="2"
                                HorizontalOptions="Center"
                                Grid.Row="0"
-                               Grid.RowSpan="2"
+                               
                                VerticalOptions="Center"
-                               FontSize="Large"
                                FontAttributes="Bold" 
                                TextColor="{Binding TextColor}"
                               />
-                    </Grid>
-                </DataTemplate>
+                                </Grid>
+                                </StackLayout>
+                            </Frame>
+                        </Frame>
+                    </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
         </StackLayout>
