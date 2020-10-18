@@ -23,6 +23,18 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
+        <StackLayout>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Picker Title="Month" x:Name="Month" ItemsSource="{Binding Months}"  SelectedItem="{Binding Month,Mode=TwoWay}"
+                        HorizontalOptions="FillAndExpand">
+            </Picker>
+            <Picker x:Name="Year"
+                        Title="Year"
+                        HorizontalOptions="FillAndExpand"
+                        ItemsSource="{Binding Years}"
+                        SelectedItem="{Binding Year,Mode=TwoWay}"/>
+            <Button x:Name="ButtonFilter" Text="Filter" Clicked="ButtonFilter_Clicked"></Button>
+        </StackLayout>
         <CollectionView x:Name="CollectionViewTransactions"
                         ItemsSource="{Binding Transactions}"
                         SelectionMode="Multiple" VerticalScrollBarVisibility="Always">
@@ -48,7 +60,7 @@
 
                         <Label Grid.Column="1"
                                Grid.Row="0" 
-                               Text="{Binding Date,StringFormat='{0:d MMMM}'}"
+                               Text="{Binding Date,StringFormat='{0:d MMMM yyyy}'}"
                                FontSize="Subtitle" />
 
                         <Label Text="{Binding Description}"
@@ -68,5 +80,6 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

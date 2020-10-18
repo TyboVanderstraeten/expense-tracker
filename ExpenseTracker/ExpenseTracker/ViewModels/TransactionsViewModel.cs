@@ -10,18 +10,26 @@ namespace ExpenseTracker.ViewModels
     public class TransactionsViewModel : BaseViewModel
     {
         #region Private fields
+        private Month _month = Month.ALL;
+        private int _year = DateTime.Now.Year;
+
         private decimal _balance;
+        private decimal _expenses;
+        private decimal _income;
         #endregion
 
         #region Properties
+        public ObservableCollection<Month> Months { get; }
+        public ObservableCollection<int> Years { get; }
         public ObservableCollection<Transaction> Transactions { get; set; }
-        public ICollection<TransactionType> TransactionTypes { get; set; }
 
-        public decimal Balance
-        {
-            get { return _balance; }
-            set { SetProperty(ref _balance, value); }
-        }
+
+        public Month Month { get { return _month; } set { SetProperty(ref _month, value); } }
+        public int Year { get { return _year; } set { SetProperty(ref _year, value); } }
+
+        public decimal Balance { get { return _balance; } set { SetProperty(ref _balance, value); } }
+        public decimal Expenses { get { return _expenses; } set { SetProperty(ref _expenses, value); } }
+        public decimal Income { get { return _income; } set { SetProperty(ref _income, value); } }
         #endregion
 
         #region Constructors
@@ -29,44 +37,56 @@ namespace ExpenseTracker.ViewModels
         {
             Title = "Transactions";
 
+            Months = new ObservableCollection<Month>();
+            Years = new ObservableCollection<int>();
             Transactions = new ObservableCollection<Transaction>();
-            TransactionTypes = new List<TransactionType>();
 
-            LoadTransactionTypes();
-            LoadTransactions();
+            LoadMonths();
+            LoadYears();
+            FilterTransactions().Wait();
         }
         #endregion
 
         #region Methods
-        private void LoadTransactionTypes()
+        private void LoadMonths()
         {
-            foreach (TransactionType transactionType in Enum.GetValues(typeof(TransactionType)))
+            foreach (Month month in Enum.GetValues(typeof(Month)))
             {
-                TransactionTypes.Add(transactionType);
+                Months.Add(month);
             }
         }
 
-        private async void LoadTransactions()
+        private void LoadYears()
         {
-            Transactions.Clear();
+            for (int i = 2020; i <= DateTime.Now.Year; i++)
+            {
+                Years.Add(i);
+            }
+        }
 
+        public async Task FilterTransactions()
+        {
             List<Transaction> transactions = await App.Database.GetTransactionsAsync();
 
-            transactions = transactions.OrderByDescending(t => t.Date).ToList();
+            if (Month == Month.ALL)
+            {
+                transactions = transactions.Where(t => t.Date.Year == Year).ToList();
+            }
+            else
+            {
+                transactions = transactions.Where(t => t.Date.Month == (int)Month && t.Date.Year == Year).ToList();
+            }
 
-            foreach (Transaction transaction in transactions)
+            Transactions.Clear();
+
+            foreach(Transaction transaction in transactions)
             {
                 Transactions.Add(transaction);
             }
 
-            CalculateBalance();
-        }
-
-        public void CalculateBalance()
-        {
-            decimal expenseAmount = Transactions.Where(t => t.TransactionType != TransactionType.INCOME).Sum(t => t.Amount);
-            decimal incomeAmount = Transactions.Where(t => t.TransactionType == TransactionType.INCOME).Sum(t => t.Amount);
-            Balance = expenseAmount - incomeAmount;
+            Expenses = transactions.Where(t => t.TransactionType != TransactionType.INCOME).Sum(t => t.Amount);
+            Income = transactions.Where(t => t.TransactionType == TransactionType.INCOME).Sum(t => t.Amount);
+            Balance = Expenses - Income;
         }
 
         public async Task<int> SaveTransactionAsync(Transaction transaction)

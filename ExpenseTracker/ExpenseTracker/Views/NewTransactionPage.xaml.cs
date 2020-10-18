@@ -36,7 +36,7 @@ namespace ExpenseTracker.Views
                     );
 
                 await _transactionsViewModel.SaveTransactionAsync(transaction);
-                _transactionsViewModel.CalculateBalance();
+                //_transactionsViewModel.CalculateBalance();
                 await Navigation.PopAsync();
             }
         }

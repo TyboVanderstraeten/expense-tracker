@@ -21,15 +21,11 @@ namespace ExpenseTracker.Views
         #endregion
 
         #region Methods
-        private async void Month_SelectedIndexChanged(object sender, System.EventArgs e)
+        private async void ButtonFilter_Clicked(object sender, System.EventArgs e)
         {
-            await _infoViewModel.OnMonthSelected();
-        }
-
-        private void Year_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-            _infoViewModel.OnYearSelected();
+            await _infoViewModel.FilterTransactions();
         }
         #endregion
+
     }
 }

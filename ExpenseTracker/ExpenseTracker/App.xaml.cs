@@ -28,11 +28,6 @@ namespace ExpenseTracker
             InitializeComponent();
 
             MainPage = new MainPage();
-
-            /*
-             * TO REMOVE
-             */
-            //DataSeeder.SeedDB();
         }
         #endregion
 

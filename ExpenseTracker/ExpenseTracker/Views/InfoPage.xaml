@@ -15,31 +15,17 @@
     <ContentPage.Content>
         <StackLayout Margin="15">
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                <Picker Title="Month" x:Name="Month" SelectedItem="{Binding Month,Mode=TwoWay}"
-                        HorizontalOptions="FillAndExpand" SelectedIndexChanged="Month_SelectedIndexChanged">
-                    <Picker.Items>
-                        <x:String>All</x:String>
-                        <x:String>January</x:String>
-                        <x:String>February</x:String>
-                        <x:String>March</x:String>
-                        <x:String>April</x:String>
-                        <x:String>May</x:String>
-                        <x:String>June</x:String>
-                        <x:String>July</x:String>
-                        <x:String>August</x:String>
-                        <x:String>September</x:String>
-                        <x:String>October</x:String>
-                        <x:String>November</x:String>
-                        <x:String>December</x:String>
-                    </Picker.Items>
+                <Picker Title="Month" x:Name="Month"  ItemsSource="{Binding Months}" SelectedItem="{Binding Month,Mode=TwoWay}"
+                        HorizontalOptions="FillAndExpand">
                 </Picker>
                 <Picker x:Name="Year"
                         Title="Year"
                         HorizontalOptions="FillAndExpand"
                         ItemsSource="{Binding Years}"
-                        SelectedItem="{Binding Year,Mode=TwoWay}" SelectedIndexChanged="Year_SelectedIndexChanged" />
-
+                        SelectedItem="{Binding Year,Mode=TwoWay}"/>
+                <Button x:Name="ButtonFilter" Text="Filter" Clicked="ButtonFilter_Clicked"></Button>
             </StackLayout>
+            <Label/>
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                 <Label Text="Balance:"/>
                 <Label Text="{Binding Balance,Converter={StaticResource Valuta}}" />
@@ -48,25 +34,8 @@
                 <Label Text="Income:" />
                 <Label Text="{Binding Income,Converter={StaticResource Valuta}}" />
             </StackLayout>
-            <Label Text="CATEGORIES" />
+            <Label/>
 
-            <CollectionView x:Name="CollectionViewTransactionTypes"
-                            ItemsSource="{Binding TransactionTypesWithAmounts,Mode=TwoWay}" Margin="15">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame Margin="15" HorizontalOptions="FillAndExpand" VerticalOptions="Start" CornerRadius="25">
-                        <StackLayout Padding="10">
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Key}"
-                                       FontSize="16" />
-                                <Label Text="{Binding Value,Converter={StaticResource Valuta}}"
-                                       FontSize="16" />
-                            </StackLayout>
-                        </StackLayout>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
