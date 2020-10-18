@@ -48,42 +48,42 @@
                             VerticalScrollBarVisibility="Always">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame  BackgroundColor="Transparent">
-                        <Frame CornerRadius="5" HasShadow="True">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="3*" />
-                                <ColumnDefinition Width="9*" />
-                                <ColumnDefinition Width="3*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Image Grid.Column="0"
+                        <Frame BackgroundColor="Transparent">
+                            <Frame CornerRadius="5" 
+                               HasShadow="True">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*" />
+                                        <ColumnDefinition Width="9*" />
+                                        <ColumnDefinition Width="3*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Image Grid.Column="0"
                                    Grid.Row="0"
-                               VerticalOptions="Center"
-                               Aspect="AspectFit"
-                               HeightRequest="60"
-                               WidthRequest="60"
-                               Source="{Binding ImageUrl}"/>
+                                   VerticalOptions="Center"
+                                   Aspect="AspectFit"
+                                   HeightRequest="60"
+                                   WidthRequest="60"
+                                   Source="{Binding ImageUrl}"/>
 
-                            <Label Text="{Binding TransactionType}"
-                                   Grid.Column="1"
+                                    <Label Grid.Column="1"
                                    Grid.Row="0"
                                    HorizontalOptions="Center"
                                    VerticalOptions="Center"
+                                   Text="{Binding TransactionType}"
                                    FontSize="Medium"
                                    FontAttributes="Bold"/>
 
-                            <Label Text="{Binding Amount, Converter={StaticResource Valuta}}"
-                               Grid.Column="2"
-                               HorizontalOptions="Center"
-                               Grid.Row="0"
-                               VerticalOptions="Center"
-                               FontAttributes="Bold" 
-                               TextColor="{Binding TextColor}"
-                              />
-                        </Grid>
+                                    <Label Grid.Column="2"
+                                           Grid.Row="0"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           Text="{Binding Amount, Converter={StaticResource Valuta}}"
+                                           FontAttributes="Bold" 
+                                           TextColor="{Binding TextColor}"/>
+                                </Grid>
                             </Frame>
                         </Frame>
                     </DataTemplate>

@@ -49,57 +49,59 @@
                             VerticalScrollBarVisibility="Always">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame BackgroundColor="Transparent" VerticalOptions="StartAndExpand" HorizontalOptions="Start">
-                            <Frame CornerRadius="5" HasShadow="True">
+                        <Frame BackgroundColor="Transparent" 
+                               HorizontalOptions="Start"
+                               VerticalOptions="StartAndExpand">
+                            <Frame CornerRadius="5" 
+                                   HasShadow="True">
                                 <StackLayout Orientation="Vertical">
-                        <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*" />
-                            <ColumnDefinition Width="9*" />
-                            <ColumnDefinition Width="3*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Image Grid.Column="0"
-                               VerticalOptions="Center"
-                               HorizontalOptions="Center"
-                               Aspect="AspectFit"
-                               HeightRequest="60"
-                               WidthRequest="60"
-                               Source="{Binding ImageUrl}"/>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3*" />
+                                            <ColumnDefinition Width="9*" />
+                                            <ColumnDefinition Width="3*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Image Grid.Column="0"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="Center"
+                                               Aspect="AspectFit"
+                                               HeightRequest="60"
+                                               WidthRequest="60"
+                                               Source="{Binding ImageUrl}"/>
 
-                            <StackLayout Orientation="Vertical" Grid.Column="1" Grid.Row="0">
-                        <Label 
-      
-                               Text="{Binding Date, StringFormat='{0:d MMMM yyyy}'}"
-                               FontSize="Subtitle"
-                               FontAttributes="Bold"  VerticalOptions="Center"
-                               HorizontalOptions="Center"/>
+                                        <StackLayout Orientation="Vertical" 
+                                                     Grid.Column="1" 
+                                                     Grid.Row="0">
+                                            <Label Text="{Binding Date, StringFormat='{0:d MMMM yyyy}'}"
+                                                   FontSize="Subtitle"
+                                                   FontAttributes="Bold"  
+                                                   VerticalOptions="Center"
+                                                   HorizontalOptions="Center"/>
 
-                            <Label
-                        VerticalOptions="Center"
-                               HorizontalOptions="Center"
-                                   Text="{Binding Description}" HorizontalTextAlignment="Center"
-                                   FontSize="Body"/>
-                            </StackLayout>
+                                            <Label VerticalOptions="Center"
+                                                   HorizontalOptions="Center"
+                                                   Text="{Binding Description}" 
+                                                   HorizontalTextAlignment="Center"
+                                                   FontSize="Body"/>
+                                        </StackLayout>
 
-                            <Label Text="{Binding Amount, Converter={StaticResource Valuta}}"
-                               Grid.Column="2"
-                               HorizontalOptions="Center"
-                               Grid.Row="0"
-                               
-                               VerticalOptions="Center"
-                               FontAttributes="Bold" 
-                               TextColor="{Binding TextColor}"
-                              />
-                                </Grid>
+                                        <Label Text="{Binding Amount, Converter={StaticResource Valuta}}"
+                                               Grid.Column="2"
+                                               Grid.Row="0"                            
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               FontAttributes="Bold" 
+                                               TextColor="{Binding TextColor}"/>
+                                    </Grid>
                                 </StackLayout>
                             </Frame>
                         </Frame>
                     </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
