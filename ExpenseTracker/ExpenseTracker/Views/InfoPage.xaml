@@ -7,35 +7,38 @@
              mc:Ignorable="d"
              x:Class="ExpenseTracker.Views.InfoPage"
              Title="{Binding Title}">
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:ValutaConverter x:Key="Valuta" />
         </ResourceDictionary>
     </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{Binding Balance, Converter={StaticResource Valuta}}" />
+        <ToolbarItem Text="{Binding Expenses, Converter={StaticResource Valuta}}" />
+        <ToolbarItem Text="{Binding Income, Converter={StaticResource Valuta}}" />
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         <StackLayout Margin="15">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                <Picker Title="Month" x:Name="Month"  ItemsSource="{Binding Months}" SelectedItem="{Binding Month,Mode=TwoWay}"
-                        HorizontalOptions="FillAndExpand">
+            <StackLayout Orientation="Horizontal" 
+                         HorizontalOptions="FillAndExpand">
+                <Picker x:Name="PickerMonth" 
+                        Title="Month"  
+                        HorizontalOptions="FillAndExpand"
+                        ItemsSource="{Binding Months}" 
+                        SelectedItem="{Binding Month, Mode=TwoWay}">
                 </Picker>
-                <Picker x:Name="Year"
+                <Picker x:Name="PickerYear"
                         Title="Year"
                         HorizontalOptions="FillAndExpand"
                         ItemsSource="{Binding Years}"
-                        SelectedItem="{Binding Year,Mode=TwoWay}"/>
-                <Button x:Name="ButtonFilter" Text="Filter" Clicked="ButtonFilter_Clicked"></Button>
+                        SelectedItem="{Binding Year, Mode=TwoWay}"/>
+                <Button x:Name="ButtonFilter" 
+                        Text="Filter" 
+                        Clicked="ButtonFilter_Clicked"></Button>
             </StackLayout>
-            <Label/>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                <Label Text="Balance:"/>
-                <Label Text="{Binding Balance,Converter={StaticResource Valuta}}" />
-                <Label Text="Expenses:" />
-                <Label Text="{Binding Expenses,Converter={StaticResource Valuta}}" />
-                <Label Text="Income:" />
-                <Label Text="{Binding Income,Converter={StaticResource Valuta}}" />
-            </StackLayout>
-            <Label/>
-
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

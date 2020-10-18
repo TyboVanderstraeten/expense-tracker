@@ -40,7 +40,7 @@ namespace ExpenseTracker.ViewModels
 
             LoadMonths();
             LoadYears();
-            FilterTransactions().Wait();
+            FilterData();
 
         }
         #endregion
@@ -62,7 +62,7 @@ namespace ExpenseTracker.ViewModels
             }
         }
 
-        public async Task FilterTransactions()
+        public async Task FilterData()
         {
             List<Transaction> transactions = await App.Database.GetTransactionsAsync();
 

@@ -23,9 +23,8 @@ namespace ExpenseTracker.Views
         #region Methods
         private async void ButtonFilter_Clicked(object sender, System.EventArgs e)
         {
-            await _infoViewModel.FilterTransactions();
+            await _infoViewModel.FilterData();
         }
         #endregion
-
     }
 }

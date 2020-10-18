@@ -23,7 +23,12 @@ namespace ExpenseTracker.Views
         #endregion
 
         #region Methods
-        private async void Save_Clicked(object sender, EventArgs args)
+        private async void ButtonCancel_Clicked(object sender, EventArgs args)
+        {
+            await Navigation.PopAsync(true);
+        }
+
+        private async void ButtonSave_Clicked(object sender, EventArgs args)
         {
             if (PickerTransactionType.SelectedItem == null || EditorDescription.Text == null || EntryAmount.Text == null || DatePickerDate.Date == null)
             {
@@ -31,19 +36,12 @@ namespace ExpenseTracker.Views
             }
             else
             {
-                Transaction transaction = new Transaction(
-                        (TransactionType)PickerTransactionType.SelectedItem, EditorDescription.Text, Convert.ToDecimal(EntryAmount.Text), DatePickerDate.Date
-                    );
+                Transaction transaction = new Transaction((TransactionType)PickerTransactionType.SelectedItem, EditorDescription.Text, Convert.ToDecimal(EntryAmount.Text), DatePickerDate.Date);
 
                 await _transactionsViewModel.SaveTransactionAsync(transaction);
-                //_transactionsViewModel.CalculateBalance();
-                await Navigation.PopAsync();
+                await _transactionsViewModel.FilterData();
+                await Navigation.PopAsync(true);
             }
-        }
-
-        private async void Cancel_Clicked(object sender, EventArgs args)
-        {
-            await Navigation.PopAsync();
         }
         #endregion
     }

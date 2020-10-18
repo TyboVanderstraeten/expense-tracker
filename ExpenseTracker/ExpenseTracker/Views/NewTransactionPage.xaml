@@ -8,22 +8,24 @@
              Title="{Binding Title}">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
-        <ToolbarItem Text="Save" Clicked="Save_Clicked" />
+        <ToolbarItem Text="Cancel" Clicked="ButtonCancel_Clicked" />
+        <ToolbarItem Text="Save" Clicked="ButtonSave_Clicked" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout Spacing="20" Padding="15">
-            <Label Text="Transaction type"/>
-            <Picker x:Name="PickerTransactionType" ItemsSource="{Binding TransactionTypes}"/>
+        <StackLayout Margin="15">
+            <Label Text="Transaction type *"/>
+            <Picker x:Name="PickerTransactionType" 
+                    ItemsSource="{Binding TransactionTypes}"/>
 
-            <Label Text="Description"/>
-            <Editor x:Name="EditorDescription" Margin="0"/>
+            <Label Text="Description *"/>
+            <Editor x:Name="EditorDescription"/>
 
-            <Label Text="Amount"/>
-            <Entry x:Name="EntryAmount" Keyboard="Numeric"/>
+            <Label Text="Amount *"/>
+            <Entry x:Name="EntryAmount" 
+                   Keyboard="Numeric"/>
 
-            <Label Text="Date"/>
+            <Label Text="Date *"/>
             <DatePicker x:Name="DatePickerDate"/>
         </StackLayout>
     </ContentPage.Content>

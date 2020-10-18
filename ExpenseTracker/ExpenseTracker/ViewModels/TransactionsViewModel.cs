@@ -21,7 +21,8 @@ namespace ExpenseTracker.ViewModels
         #region Properties
         public ObservableCollection<Month> Months { get; }
         public ObservableCollection<int> Years { get; }
-        public ObservableCollection<Transaction> Transactions { get; set; }
+        public ObservableCollection<Transaction> Transactions { get; }
+        public ObservableCollection<TransactionType> TransactionTypes { get; }
 
 
         public Month Month { get { return _month; } set { SetProperty(ref _month, value); } }
@@ -40,10 +41,12 @@ namespace ExpenseTracker.ViewModels
             Months = new ObservableCollection<Month>();
             Years = new ObservableCollection<int>();
             Transactions = new ObservableCollection<Transaction>();
+            TransactionTypes = new ObservableCollection<TransactionType>();
 
             LoadMonths();
             LoadYears();
-            FilterTransactions().Wait();
+            LoadTransactionTypes();
+            FilterData();
         }
         #endregion
 
@@ -64,7 +67,15 @@ namespace ExpenseTracker.ViewModels
             }
         }
 
-        public async Task FilterTransactions()
+        private void LoadTransactionTypes()
+        {
+            foreach(TransactionType transactionType in Enum.GetValues(typeof(TransactionType)))
+            {
+                TransactionTypes.Add(transactionType);
+            }
+        }
+
+        public async Task FilterData()
         {
             List<Transaction> transactions = await App.Database.GetTransactionsAsync();
 
@@ -79,7 +90,7 @@ namespace ExpenseTracker.ViewModels
 
             Transactions.Clear();
 
-            foreach(Transaction transaction in transactions)
+            foreach(Transaction transaction in transactions.OrderByDescending(t=>t.Date))
             {
                 Transactions.Add(transaction);
             }
@@ -93,16 +104,12 @@ namespace ExpenseTracker.ViewModels
         {
             int result = await App.Database.SaveTransactionAsync(transaction);
 
-            Transactions.Add(transaction);
-
             return result;
         }
 
         public async Task<int> DeleteTransaction(Transaction transaction)
         {
             int result = await App.Database.DeleteTransactionAsync(transaction);
-
-            Transactions.Remove(transaction);
 
             return result;
         }

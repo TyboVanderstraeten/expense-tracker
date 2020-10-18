@@ -15,32 +15,39 @@
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="{Binding Balance,Converter={StaticResource Valuta}}" />
+        <ToolbarItem Text="{Binding Balance, Converter={StaticResource Valuta}}" />
         <ToolbarItem Text="Add"
-                     Clicked="AddTransaction_Clicked" />
+                     Clicked="ButtonAddTransaction_Clicked" />
         <ToolbarItem Text="Delete"
-                     Clicked="DeleteTransaction_Clicked" />
+                     Clicked="ButtonDeleteTransaction_Clicked" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout>
-        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                <Picker Title="Month" x:Name="Month" ItemsSource="{Binding Months}"  SelectedItem="{Binding Month,Mode=TwoWay}"
-                        HorizontalOptions="FillAndExpand">
-            </Picker>
-            <Picker x:Name="Year"
+        <StackLayout Margin="15">
+            <StackLayout Orientation="Horizontal" 
+                         HorizontalOptions="FillAndExpand">
+                <Picker x:Name="PickerMonth" 
+                        Title="Month"  
+                        HorizontalOptions="FillAndExpand"
+                        ItemsSource="{Binding Months}" 
+                        SelectedItem="{Binding Month, Mode=TwoWay}">
+                </Picker>
+                <Picker x:Name="PickerYear"
                         Title="Year"
                         HorizontalOptions="FillAndExpand"
                         ItemsSource="{Binding Years}"
-                        SelectedItem="{Binding Year,Mode=TwoWay}"/>
-            <Button x:Name="ButtonFilter" Text="Filter" Clicked="ButtonFilter_Clicked"></Button>
-        </StackLayout>
-        <CollectionView x:Name="CollectionViewTransactions"
-                        ItemsSource="{Binding Transactions}"
-                        SelectionMode="Multiple" VerticalScrollBarVisibility="Always">
-            <CollectionView.ItemTemplate>
+                        SelectedItem="{Binding Year, Mode=TwoWay}"/>
+                <Button x:Name="ButtonFilter" 
+                        Text="Filter" 
+                        Clicked="ButtonFilter_Clicked"></Button>
+            </StackLayout>
+            <CollectionView x:Name="CollectionViewTransactions"
+                            ItemsSource="{Binding Transactions}"
+                            SelectionMode="Multiple" 
+                            VerticalScrollBarVisibility="Always">
+                <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="0,7.5,0,7.5">
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="6*" />
