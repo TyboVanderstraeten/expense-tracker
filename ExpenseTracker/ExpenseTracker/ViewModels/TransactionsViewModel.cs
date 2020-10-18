@@ -88,16 +88,16 @@ namespace ExpenseTracker.ViewModels
                 transactions = transactions.Where(t => t.Date.Month == (int)Month && t.Date.Year == Year).ToList();
             }
 
+            Expenses = transactions.Where(t => t.TransactionType != TransactionType.INCOME).Sum(t => t.Amount);
+            Income = transactions.Where(t => t.TransactionType == TransactionType.INCOME).Sum(t => t.Amount);
+            Balance = Income - Expenses;
+
             Transactions.Clear();
 
             foreach(Transaction transaction in transactions.OrderByDescending(t=>t.Date))
             {
                 Transactions.Add(transaction);
             }
-
-            Expenses = transactions.Where(t => t.TransactionType != TransactionType.INCOME).Sum(t => t.Amount);
-            Income = transactions.Where(t => t.TransactionType == TransactionType.INCOME).Sum(t => t.Amount);
-            Balance = Income - Expenses;
         }
 
         public async Task<int> SaveTransactionAsync(Transaction transaction)

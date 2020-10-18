@@ -41,9 +41,9 @@ namespace ExpenseTracker.Views
             {
                 List<Transaction> transactions = CollectionViewTransactions.SelectedItems.Cast<Transaction>().ToList();
 
-                bool answer = await DisplayAlert("Confirmation", "Are you sure you want to delete these transactions?", "Yes", "No");
+                bool result = await DisplayAlert("Confirmation", "Are you sure you want to delete these transactions?", "Yes", "No");
 
-                if (answer)
+                if (result)
                 {
                     foreach (Transaction transaction in transactions)
                     {
