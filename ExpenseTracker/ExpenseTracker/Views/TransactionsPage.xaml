@@ -43,7 +43,7 @@
             </StackLayout>
             <CollectionView x:Name="CollectionViewTransactions"
                             ItemsSource="{Binding Transactions}"
-                            SelectionMode="Multiple" 
+                            SelectionMode="Multiple"
                             VerticalScrollBarVisibility="Always">
                 <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -57,32 +57,35 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="4*" />
                         </Grid.RowDefinitions>
-                        <Image Grid.RowSpan="2"
+                        <Image Grid.Column="0"
+                               Grid.RowSpan="2"
                                VerticalOptions="Center"
-                               Source="{Binding ImageUrl}"
                                Aspect="AspectFit"
-                               Margin="5"
                                HeightRequest="60"
-                               WidthRequest="60" />
+                               WidthRequest="60"
+                               Source="{Binding ImageUrl}"/>
 
                         <Label Grid.Column="1"
                                Grid.Row="0" 
-                               Text="{Binding Date,StringFormat='{0:d MMMM yyyy}'}"
-                               FontSize="Subtitle" />
+                               Text="{Binding Date, StringFormat='{0:d MMMM yyyy}'}"
+                               FontSize="Subtitle"
+                               FontAttributes="Bold"/>
 
-                        <Label Text="{Binding Description}"
-                               Grid.Column="1"
-                               Grid.Row="1"
-                               FontSize="Body"  />
+                            <Label Grid.Column="1"
+                                   Grid.Row="1"
+                                   Text="{Binding Description}"
+                                   FontSize="Body"/>
 
-                        <Label Text="{Binding Amount,Converter={StaticResource Valuta}}"
+                            <Label Text="{Binding Amount, Converter={StaticResource Valuta}}"
                                Grid.Column="2"
                                HorizontalOptions="Center"
                                Grid.Row="0"
                                Grid.RowSpan="2"
                                VerticalOptions="Center"
                                FontSize="Large"
-                               FontAttributes="Bold" />
+                               FontAttributes="Bold" 
+                               TextColor="{Binding TextColor}"
+                              />
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

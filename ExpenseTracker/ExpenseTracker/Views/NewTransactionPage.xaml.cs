@@ -19,6 +19,8 @@ namespace ExpenseTracker.Views
             InitializeComponent();
 
             BindingContext = _transactionsViewModel = transactionsViewModel;
+
+            EditorDescription.Text = "No description";
         }
         #endregion
 

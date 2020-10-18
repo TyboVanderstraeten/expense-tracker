@@ -12,6 +12,17 @@ namespace ExpenseTracker.Models
         public string Description { get; set; }
         public decimal Amount { get; set; }
         public DateTime Date { get; set; }
+
+        public string TextColor {
+            get {
+                switch (TransactionType)
+                {
+                    case TransactionType.INCOME: return "Green";
+                    default: return "IndianRed";
+                }
+            }
+        }
+
         public string ImageUrl { get { return $"{TransactionType}.png"; } }
         #endregion
 
