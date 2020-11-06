@@ -10,7 +10,7 @@ using Android.OS;
 namespace ExpenseTracker.Droid
 {
     [Activity(Label = "ExpenseTracker", 
-              Icon = "@mipmap/icon", 
+              Icon = "@drawable/logo", 
               Theme = "@style/MainTheme", 
               MainLauncher = true, 
               ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, 
