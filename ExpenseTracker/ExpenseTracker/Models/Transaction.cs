@@ -18,14 +18,14 @@ namespace ExpenseTracker.Models
             get {
                 switch (TransactionType)
                 {
-                    case TransactionType.INCOME: return "Green";
+                    case TransactionType.Income: return "Green";
                     default: return "IndianRed";
                 }
             }
         }
 
         [Ignore]
-        public string ImageUrl { get { return $"{TransactionType}.png"; } }
+        public string ImageUrl { get { return $"{TransactionType.ToString().ToUpper()}.png"; } }
         #endregion
 
         #region Constructors

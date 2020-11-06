@@ -3,18 +3,18 @@
     public enum TransactionType
     {
         #region Values
-        TRAVEL,
-        ENTERTAINMENT,
-        SHOPPING,
-        EDUCATION,
-        SPORTS,
-        FOOD,
-        DRINKS,
-        DINING,
-        PUBS,
-        GIFTS,
-        OTHER,
-        INCOME
+        Travel,
+        Entertainment,
+        Shopping,
+        Education,
+        Sports,
+        Food,
+        Drinks,
+        Dining,
+        Pubs,
+        Gifts,
+        Other,
+        Income
         #endregion
     }
 }

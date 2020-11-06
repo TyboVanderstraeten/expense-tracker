@@ -78,8 +78,8 @@ namespace ExpenseTracker.ViewModels
                 transactions = transactions.Where(t => t.Date.Month == (int)Month && t.Date.Year == Year).ToList();
             }
 
-            Expenses = transactions.Where(t => t.TransactionType != TransactionType.INCOME).Sum(t => t.Amount);
-            Income = transactions.Where(t => t.TransactionType == TransactionType.INCOME).Sum(t => t.Amount);
+            Expenses = transactions.Where(t => t.TransactionType != TransactionType.Income).Sum(t => t.Amount);
+            Income = transactions.Where(t => t.TransactionType == TransactionType.Income).Sum(t => t.Amount);
             Balance = Income - Expenses;
 
             List<CategoryInfo> categoryInfos = new List<CategoryInfo>();
