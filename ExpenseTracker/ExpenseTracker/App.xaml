@@ -3,23 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:ExpenseTracker.Converters"
              mc:Ignorable="d"
              x:Class="ExpenseTracker.App">
 
     <Application.Resources>
         <ResourceDictionary>
             <!--Global Styles-->
-            <Color x:Key="NavigationPrimary">#2196F3</Color>
+            <Color x:Key="NavigationPrimary">#734b6d</Color>
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
-                <Setter Property="BarTextColor" Value="White" />
+                <Setter Property="BarTextColor" Value="WhiteSmoke" />
             </Style>
 
             <Style TargetType="Button">
-                <Setter Property="BackgroundColor" Value="#2196F3"></Setter>
+                <Setter Property="BackgroundColor"
+                        Value="#734b6d"></Setter>
                 <Setter Property="TextColor" Value="WhiteSmoke"></Setter>
                 <Setter Property="FontAttributes" Value="Bold"></Setter>
             </Style>
+
+            <local:ValutaConverter x:Key="Valuta" />
+            <local:BalanceConverter x:Key="Balance" />
+            <local:ExpensesConverter x:Key="Expenses" />
+            <local:IncomeConverter x:Key="Income" />
         </ResourceDictionary>
     </Application.Resources>
     

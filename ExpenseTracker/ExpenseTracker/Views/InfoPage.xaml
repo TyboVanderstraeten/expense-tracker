@@ -3,19 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:ExpenseTracker.Converters"
              mc:Ignorable="d"
              x:Class="ExpenseTracker.Views.InfoPage"
              Title="{Binding Title}">
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <local:ValutaConverter x:Key="Valuta" />
-            <local:BalanceConverter x:Key="Balance" />
-            <local:ExpensesConverter x:Key="Expenses" />
-            <local:IncomeConverter x:Key="Income" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="{Binding Balance, Converter={StaticResource Balance}}" />
@@ -24,71 +14,75 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout >
-            <StackLayout Orientation="Horizontal" 
-                         HorizontalOptions="FillAndExpand"
-                         Margin="15">
-                <Picker x:Name="PickerMonth" 
-                        Title="Month"  
-                        HorizontalOptions="FillAndExpand"
-                        ItemsSource="{Binding Months}" 
-                        SelectedItem="{Binding Month, Mode=TwoWay}">
-                </Picker>
-                <Picker x:Name="PickerYear"
-                        Title="Year"
-                        HorizontalOptions="FillAndExpand"
-                        ItemsSource="{Binding Years}"
-                        SelectedItem="{Binding Year, Mode=TwoWay}"/>
-                <Button x:Name="ButtonFilter" 
-                        Text="Filter" 
-                        Clicked="ButtonFilter_Clicked"></Button>
-            </StackLayout>
-            <CollectionView x:Name="CollectionViewCategoryInfos"
-                            ItemsSource="{Binding CategoryInfos}"
-                            VerticalScrollBarVisibility="Always">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame BackgroundColor="Transparent">
-                            <Frame CornerRadius="5" 
-                               HasShadow="True">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="3*" />
-                                        <ColumnDefinition Width="9*" />
-                                        <ColumnDefinition Width="3*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Image Grid.Column="0"
-                                   Grid.Row="0"
-                                   VerticalOptions="Center"
-                                   Aspect="AspectFit"
-                                   HeightRequest="60"
-                                   WidthRequest="60"
-                                   Source="{Binding ImageUrl}"/>
+        <StackLayout>
+            <StackLayout>
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="FillAndExpand"
+                             Margin="15,15,15,0">
+                    <Picker x:Name="PickerMonth"
+                            Title="Month"
+                            HorizontalOptions="FillAndExpand"
+                            ItemsSource="{Binding Months}"
+                            SelectedItem="{Binding Month, Mode=TwoWay}"
+                            SelectedIndexChanged="FilterData">
+                    </Picker>
+                    <Picker x:Name="PickerYear"
+                            Title="Year"
+                            HorizontalOptions="FillAndExpand"
+                            ItemsSource="{Binding Years}"
+                            SelectedItem="{Binding Year, Mode=TwoWay}"
+                            SelectedIndexChanged="FilterData" />
+                </StackLayout>
+                <CollectionView x:Name="CollectionViewCategoryInfos"
+                                ItemsSource="{Binding CategoryInfos}"
+                                VerticalScrollBarVisibility="Always">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BackgroundColor="Transparent">
+                                <StackLayout Orientation="Vertical">
+                                    <Grid Margin="0,0,0,15">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3*" />
+                                            <ColumnDefinition Width="9*" />
+                                            <ColumnDefinition Width="3*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Image Grid.Column="0"
+                                               Grid.Row="0"
+                                               VerticalOptions="Center"
+                                               Aspect="AspectFit"
+                                               HeightRequest="60"
+                                               WidthRequest="60"
+                                               Source="{Binding ImageUrl}" />
 
-                                    <Label Grid.Column="1"
-                                   Grid.Row="0"
-                                   HorizontalOptions="Center"
-                                   VerticalOptions="Center"
-                                   Text="{Binding TransactionType}"
-                                   FontSize="Medium"
-                                   FontAttributes="Bold"/>
+                                        <Label Grid.Column="1"
+                                               Grid.Row="0"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               Text="{Binding TransactionType}"
+                                               FontSize="Medium"
+                                               FontAttributes="Bold" />
 
-                                    <Label Grid.Column="2"
-                                           Grid.Row="0"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Center"
-                                           Text="{Binding Amount, Converter={StaticResource Valuta}}"
-                                           FontAttributes="Bold" 
-                                           TextColor="{Binding TextColor}"/>
-                                </Grid>
+                                        <Label Grid.Column="2"
+                                               Grid.Row="0"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               Text="{Binding Amount, Converter={StaticResource Valuta}}"
+                                               FontAttributes="Bold"
+                                               TextColor="{Binding TextColor}" />
+                                    </Grid>
+                                    <BoxView   VerticalOptions="Center"
+                                               HorizontalOptions="FillAndExpand"
+                                               HeightRequest="1.5"
+                                               Color="#734b6d"></BoxView>
+                                </StackLayout>
                             </Frame>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

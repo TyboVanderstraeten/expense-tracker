@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -68,7 +69,7 @@ namespace ExpenseTracker.ViewModels
         {
             List<Transaction> transactions = await App.Database.GetTransactionsAsync();
 
-            if (Month == Month.ALL)
+            if (Month == Month.All)
             {
                 transactions = transactions.Where(t => t.Date.Year == Year).ToList();
             }

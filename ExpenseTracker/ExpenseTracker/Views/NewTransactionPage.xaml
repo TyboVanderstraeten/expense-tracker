@@ -28,7 +28,8 @@
                    ClearButtonVisibility="WhileEditing"/>
 
             <Label Text="Date *"/>
-            <DatePicker x:Name="DatePickerDate"/>
+            <DatePicker x:Name="DatePickerDate"
+                        Format="dd/MM/yyyy"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

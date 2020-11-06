@@ -17,13 +17,21 @@ namespace ExpenseTracker.Views
             InitializeComponent();
 
             BindingContext = _infoViewModel = new InfoViewModel();
+
         }
         #endregion
 
         #region Methods
-        private async void ButtonFilter_Clicked(object sender, System.EventArgs e)
+        private async void FilterData(object sender, System.EventArgs e)
         {
             await _infoViewModel.FilterData();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            _infoViewModel.FilterData();
         }
         #endregion
     }

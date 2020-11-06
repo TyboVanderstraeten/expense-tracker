@@ -10,7 +10,7 @@ namespace ExpenseTracker.Views
         public MainPage()
         {
             InitializeComponent();
-        } 
+        }
         #endregion
     }
 }

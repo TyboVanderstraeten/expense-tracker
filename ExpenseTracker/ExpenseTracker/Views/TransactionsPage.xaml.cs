@@ -25,7 +25,7 @@ namespace ExpenseTracker.Views
         #endregion
 
         #region Methods
-        private async void ButtonFilter_Clicked(object sender, System.EventArgs e)
+        private async void FilterData(object sender, System.EventArgs e)
         {
             await _transactionsViewModel.FilterData();
         }
@@ -59,6 +59,13 @@ namespace ExpenseTracker.Views
             {
                 await DisplayAlert("Info", "No transactions selected!", "Cancel");
             }
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            _transactionsViewModel.FilterData();
         }
         #endregion
     }

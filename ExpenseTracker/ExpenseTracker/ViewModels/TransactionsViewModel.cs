@@ -79,7 +79,7 @@ namespace ExpenseTracker.ViewModels
         {
             List<Transaction> transactions = await App.Database.GetTransactionsAsync();
 
-            if (Month == Month.ALL)
+            if (Month == Month.All)
             {
                 transactions = transactions.Where(t => t.Date.Year == Year).ToList();
             }
