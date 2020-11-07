@@ -24,9 +24,6 @@
             </Style>
 
             <local:ValutaConverter x:Key="Valuta" />
-            <local:BalanceConverter x:Key="Balance" />
-            <local:ExpensesConverter x:Key="Expenses" />
-            <local:IncomeConverter x:Key="Income" />
         </ResourceDictionary>
     </Application.Resources>
     

@@ -35,8 +35,6 @@ namespace ExpenseTracker.ViewModels
         #region Constructors
         public InfoViewModel()
         {
-            Title = "Info";
-
             Months = new ObservableCollection<Month>();
             Years = new ObservableCollection<int>();
             CategoryInfos = new ObservableCollection<CategoryInfo>();

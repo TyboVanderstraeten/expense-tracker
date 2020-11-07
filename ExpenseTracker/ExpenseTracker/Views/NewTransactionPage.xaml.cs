@@ -34,7 +34,12 @@ namespace ExpenseTracker.Views
         {
             if (PickerTransactionType.SelectedItem == null || EntryDescription.Text == null || EntryAmount.Text == null || DatePickerDate.Date == null)
             {
+
                 await DisplayAlert("Info", "All fields are required!", "Cancel");
+            }
+            else if (Convert.ToDecimal(EntryAmount.Text) <= 0)
+            {
+                await DisplayAlert("Info", "Amount must be greater than 0!", "Cancel");
             }
             else
             {

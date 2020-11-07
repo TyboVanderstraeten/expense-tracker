@@ -36,8 +36,6 @@ namespace ExpenseTracker.ViewModels
         #region Constructors
         public TransactionsViewModel()
         {
-            Title = "Transactions";
-
             Months = new ObservableCollection<Month>();
             Years = new ObservableCollection<int>();
             Transactions = new ObservableCollection<Transaction>();

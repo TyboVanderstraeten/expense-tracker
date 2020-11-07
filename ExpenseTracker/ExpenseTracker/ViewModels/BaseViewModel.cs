@@ -14,7 +14,7 @@ namespace ExpenseTracker.ViewModels
             set { SetProperty(ref isBusy, value); }
         }
 
-        string title = string.Empty;
+        string title = "Expense Tracker";
         public string Title {
             get { return title; }
             set { SetProperty(ref title, value); }

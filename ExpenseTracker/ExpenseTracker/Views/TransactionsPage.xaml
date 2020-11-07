@@ -26,7 +26,6 @@
     </ContentPage.Resources>
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="{Binding Balance, Converter={StaticResource Balance}}" />
         <ToolbarItem Text="Add"
                      Clicked="ButtonAddTransaction_Clicked" />
         <ToolbarItem Text="Delete"
@@ -51,6 +50,28 @@
                         ItemsSource="{Binding Years}"
                         SelectedItem="{Binding Year, Mode=TwoWay}"
                         SelectedIndexChanged="FilterData" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="CenterAndExpand"
+                         Margin="15,15,15,0">
+                <Label Text="Balance:"
+                       FontAttributes="Bold" />
+                <Label Text="{Binding Balance, Converter={StaticResource Valuta}}"
+                       FontAttributes="Bold" />
+                <Label Text="|"
+                       FontAttributes="Bold" />
+                <Label Text="Out:"
+                       FontAttributes="Bold" />
+                <Label Text="{Binding Expenses, Converter={StaticResource Valuta}}"
+                       TextColor="IndianRed"
+                       FontAttributes="Bold" />
+                <Label Text="|"
+                       FontAttributes="Bold" />
+                <Label Text="In:"
+                       FontAttributes="Bold" />
+                <Label Text="{Binding Income, Converter={StaticResource Valuta}}"
+                       TextColor="Green"
+                       FontAttributes="Bold" />
             </StackLayout>
             <CollectionView x:Name="CollectionViewTransactions"
                             ItemsSource="{Binding Transactions}"

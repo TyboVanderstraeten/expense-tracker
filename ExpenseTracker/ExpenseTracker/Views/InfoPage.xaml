@@ -6,13 +6,6 @@
              mc:Ignorable="d"
              x:Class="ExpenseTracker.Views.InfoPage"
              Title="{Binding Title}">
-
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="{Binding Balance, Converter={StaticResource Balance}}" />
-        <ToolbarItem Text="{Binding Expenses, Converter={StaticResource Expenses}}" />
-        <ToolbarItem Text="{Binding Income, Converter={StaticResource Income}}" />
-    </ContentPage.ToolbarItems>
-
     <ContentPage.Content>
         <StackLayout>
             <StackLayout>
@@ -32,6 +25,28 @@
                             ItemsSource="{Binding Years}"
                             SelectedItem="{Binding Year, Mode=TwoWay}"
                             SelectedIndexChanged="FilterData" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="CenterAndExpand"
+                             Margin="15,15,15,0">
+                    <Label Text="Balance:"
+                           FontAttributes="Bold" />
+                    <Label Text="{Binding Balance, Converter={StaticResource Valuta}}"
+                           FontAttributes="Bold" />
+                    <Label Text="|"
+                           FontAttributes="Bold" />
+                    <Label Text="Out:"
+                           FontAttributes="Bold" />
+                    <Label Text="{Binding Expenses, Converter={StaticResource Valuta}}"
+                           TextColor="IndianRed"
+                           FontAttributes="Bold" />
+                    <Label Text="|"
+                           FontAttributes="Bold" />
+                    <Label Text="In:"
+                           FontAttributes="Bold" />
+                    <Label Text="{Binding Income, Converter={StaticResource Valuta}}"
+                           TextColor="Green"
+                           FontAttributes="Bold" />
                 </StackLayout>
                 <CollectionView x:Name="CollectionViewCategoryInfos"
                                 ItemsSource="{Binding CategoryInfos}"
