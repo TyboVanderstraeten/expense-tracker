@@ -55,7 +55,7 @@
                         <DataTemplate>
                             <Frame BackgroundColor="Transparent">
                                 <StackLayout Orientation="Vertical">
-                                    <Grid>
+                                    <Grid Margin="0,0,0,15">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="3*" />
                                             <ColumnDefinition Width="9*" />

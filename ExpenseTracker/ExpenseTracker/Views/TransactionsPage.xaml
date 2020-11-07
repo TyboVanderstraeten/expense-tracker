@@ -33,7 +33,7 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout >
+        <StackLayout>
             <StackLayout Orientation="Horizontal" 
                          HorizontalOptions="FillAndExpand"
                          Margin="15,15,15,0">
@@ -81,7 +81,7 @@
                     <DataTemplate>
                         <Frame  BackgroundColor="Transparent">
                             <StackLayout Orientation="Vertical">
-                                <Grid>
+                                <Grid Margin="0,0,0,15">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="3*" />
                                         <ColumnDefinition Width="9*" />

@@ -6,7 +6,6 @@
             mc:Ignorable="d"
             xmlns:views="clr-namespace:ExpenseTracker.Views"
             x:Class="ExpenseTracker.Views.MainPage">
-
     <TabbedPage.Children>
         <NavigationPage Title="Transactions">
             <x:Arguments>
