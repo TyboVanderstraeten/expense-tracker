@@ -28,7 +28,7 @@
                 </StackLayout>
                 <StackLayout Orientation="Horizontal"
                              HorizontalOptions="CenterAndExpand"
-                             Margin="15,15,15,0">
+                             Margin="15">
                     <Label Text="Balance:"
                            FontAttributes="Bold" />
                     <Label Text="{Binding Balance, Converter={StaticResource Valuta}}"
@@ -55,7 +55,7 @@
                         <DataTemplate>
                             <Frame BackgroundColor="Transparent">
                                 <StackLayout Orientation="Vertical">
-                                    <Grid Margin="0,0,0,15">
+                                    <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="3*" />
                                             <ColumnDefinition Width="9*" />
