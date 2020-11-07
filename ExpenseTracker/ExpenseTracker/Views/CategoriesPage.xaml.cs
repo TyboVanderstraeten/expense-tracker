@@ -5,18 +5,18 @@ using Xamarin.Forms.Xaml;
 namespace ExpenseTracker.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class InfoPage : ContentPage
+    public partial class CategoriesPage : ContentPage
     {
         #region Private fields
-        private readonly InfoViewModel _infoViewModel;
+        private readonly CategoriesViewModel _categoriesViewModel;
         #endregion
 
         #region Constructors
-        public InfoPage()
+        public CategoriesPage()
         {
             InitializeComponent();
 
-            BindingContext = _infoViewModel = new InfoViewModel();
+            BindingContext = _categoriesViewModel = new CategoriesViewModel();
 
         }
         #endregion
@@ -24,14 +24,14 @@ namespace ExpenseTracker.Views
         #region Methods
         private async void FilterData(object sender, System.EventArgs e)
         {
-            await _infoViewModel.FilterData();
+            await _categoriesViewModel.FilterData();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            _infoViewModel.FilterData();
+            _categoriesViewModel.FilterData();
         }
         #endregion
     }

@@ -14,9 +14,16 @@
             </x:Arguments>
         </NavigationPage>
 
-        <NavigationPage Title="Info">
+        <NavigationPage Title="Categories">
             <x:Arguments>
-                <views:InfoPage />
+                <views:CategoriesPage />
+            </x:Arguments>
+        </NavigationPage>
+
+
+        <NavigationPage Title="Statistics">
+            <x:Arguments>
+                <views:StatisticsPage />
             </x:Arguments>
         </NavigationPage>
     </TabbedPage.Children>

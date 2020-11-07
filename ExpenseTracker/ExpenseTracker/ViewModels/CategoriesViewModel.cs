@@ -2,13 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ExpenseTracker.ViewModels
 {
-    public class InfoViewModel : BaseViewModel
+    public class CategoriesViewModel : BaseViewModel
     {
         #region Private fields
         private Month _month = (Month)DateTime.Now.Month;
@@ -33,7 +32,7 @@ namespace ExpenseTracker.ViewModels
         #endregion
 
         #region Constructors
-        public InfoViewModel()
+        public CategoriesViewModel()
         {
             Months = new ObservableCollection<Month>();
             Years = new ObservableCollection<int>();
@@ -42,7 +41,6 @@ namespace ExpenseTracker.ViewModels
             LoadMonths();
             LoadYears();
             FilterData();
-
         }
         #endregion
 
