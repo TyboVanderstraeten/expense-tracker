@@ -86,7 +86,11 @@ namespace ExpenseTracker.ViewModels
 
             foreach (TransactionType transactionType in Enum.GetValues(typeof(TransactionType)))
             {
-                categoryInfos.Add(new CategoryInfo(transactionType, transactions.Where(t => t.TransactionType == transactionType).Sum(t => t.Amount)));
+                CategoryInfo categoryInfo = new CategoryInfo(transactionType, transactions.Where(t => t.TransactionType == transactionType).Sum(t => t.Amount));
+                if (categoryInfo.Amount > 0)
+                {
+                    categoryInfos.Add(categoryInfo);
+                }
             }
 
             CategoryInfos.Clear();
