@@ -83,7 +83,7 @@ namespace ExpenseTracker.ViewModels
             Income = transactions.Where(t => t.TransactionType == TransactionType.Income).Sum(t => t.Amount);
             Balance = Income - Expenses;
 
-            await FilterPlotModel();
+            FilterPlotModel().Wait();
         }
 
         private async Task FilterPlotModel()

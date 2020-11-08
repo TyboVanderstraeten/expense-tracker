@@ -22,8 +22,6 @@
                 <Setter Property="TextColor" Value="WhiteSmoke"></Setter>
                 <Setter Property="FontAttributes" Value="Bold"></Setter>
             </Style>
-
-            <local:ValutaConverter x:Key="Valuta" />
         </ResourceDictionary>
     </Application.Resources>
     
