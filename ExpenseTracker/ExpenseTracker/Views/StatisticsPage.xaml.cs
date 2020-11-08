@@ -17,11 +17,21 @@ namespace ExpenseTracker.Views
             InitializeComponent();
 
             BindingContext = _statisticsViewModel = new StatisticsViewModel();
-
         }
         #endregion
 
         #region Methods
+        private async void FilterData(object sender, System.EventArgs e)
+        {
+            await _statisticsViewModel.FilterData();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            _statisticsViewModel.FilterData();
+        }
         #endregion
     }
 }
