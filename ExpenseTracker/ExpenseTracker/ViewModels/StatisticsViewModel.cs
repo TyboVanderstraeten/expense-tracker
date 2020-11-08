@@ -16,6 +16,11 @@ namespace ExpenseTracker.ViewModels
         private Month _month = (Month)DateTime.Now.Month;
         private int _year = DateTime.Now.Year;
 
+
+        private decimal _balance;
+        private decimal _expenses;
+        private decimal _income;
+
         private PlotModel _model;
         #endregion
 
@@ -23,10 +28,14 @@ namespace ExpenseTracker.ViewModels
         public ObservableCollection<Month> Months { get; }
         public ObservableCollection<int> Years { get; }
 
-        public PlotModel Model { get { return _model; } set { SetProperty(ref _model, value); } }
-
         public Month Month { get { return _month; } set { SetProperty(ref _month, value); } }
         public int Year { get { return _year; } set { SetProperty(ref _year, value); } }
+
+        public decimal Balance { get { return _balance; } set { SetProperty(ref _balance, value); } }
+        public decimal Expenses { get { return _expenses; } set { SetProperty(ref _expenses, value); } }
+        public decimal Income { get { return _income; } set { SetProperty(ref _income, value); } }
+
+        public PlotModel Model { get { return _model; } set { SetProperty(ref _model, value); } }
         #endregion
 
         #region Constructors
@@ -71,16 +80,9 @@ namespace ExpenseTracker.ViewModels
                 transactions = transactions.Where(t => t.Date.Month == (int)Month && t.Date.Year == Year).ToList();
             }
 
-            List<CategoryInfo> categoryInfos = new List<CategoryInfo>();
-
-            foreach (TransactionType transactionType in Enum.GetValues(typeof(TransactionType)))
-            {
-                CategoryInfo categoryInfo = new CategoryInfo(transactionType, transactions.Where(t => t.TransactionType == transactionType).Sum(t => t.Amount));
-                if (categoryInfo.Amount > 0)
-                {
-                    categoryInfos.Add(categoryInfo);
-                }
-            }
+            Expenses = transactions.Where(t => t.TransactionType != TransactionType.Income).Sum(t => t.Amount);
+            Income = transactions.Where(t => t.TransactionType == TransactionType.Income).Sum(t => t.Amount);
+            Balance = Income - Expenses;
 
             await DrawChart();
         }
@@ -107,6 +109,8 @@ namespace ExpenseTracker.ViewModels
                 xaxis.MinorGridlineStyle = LineStyle.Dot;
 
                 ColumnSeries s1 = new ColumnSeries();
+                s1.LabelFormatString = "{0}";
+                s1.LabelPlacement = LabelPlacement.Middle;
                 s1.IsStacked = true;
                 s1.FillColor = OxyColor.Parse("#734b6d");
 
@@ -172,6 +176,8 @@ namespace ExpenseTracker.ViewModels
                 xaxis.MinorGridlineStyle = LineStyle.Dot;
 
                 ColumnSeries s1 = new ColumnSeries();
+                s1.LabelFormatString = "{0}";
+                s1.LabelPlacement = LabelPlacement.Middle;
                 s1.IsStacked = true;
                 s1.FillColor = OxyColor.Parse("#734b6d");
 

@@ -23,6 +23,28 @@
                  SelectedItem="{Binding Year, Mode=TwoWay}"
                  SelectedIndexChanged="FilterData" />
             </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="CenterAndExpand"
+                         Margin="15">
+                <Label Text="Balance:"
+                       FontAttributes="Bold" />
+                <Label Text="{Binding Balance, Converter={StaticResource Valuta}}"
+                       FontAttributes="Bold" />
+                <Label Text="|"
+                       FontAttributes="Bold" />
+                <Label Text="Out:"
+                       FontAttributes="Bold" />
+                <Label Text="{Binding Expenses, Converter={StaticResource Valuta}}"
+                       TextColor="IndianRed"
+                       FontAttributes="Bold" />
+                <Label Text="|"
+                       FontAttributes="Bold" />
+                <Label Text="In:"
+                       FontAttributes="Bold" />
+                <Label Text="{Binding Income, Converter={StaticResource Valuta}}"
+                       TextColor="Green"
+                       FontAttributes="Bold" />
+            </StackLayout>
             <oxy:PlotView Model="{Binding Model}"
                           VerticalOptions="FillAndExpand" />
         </StackLayout>
