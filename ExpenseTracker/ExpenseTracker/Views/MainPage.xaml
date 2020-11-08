@@ -20,9 +20,9 @@
         </NavigationPage>
 
 
-        <NavigationPage Title="Statistics">
+        <NavigationPage Title="Charts">
             <x:Arguments>
-                <views:StatisticsPage />
+                <views:ChartsPage />
             </x:Arguments>
         </NavigationPage>
     </TabbedPage.Children>

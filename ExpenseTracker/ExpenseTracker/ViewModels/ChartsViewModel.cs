@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ExpenseTracker.ViewModels
 {
-    public class StatisticsViewModel : BaseViewModel
+    public class ChartsViewModel : BaseViewModel
     {
         #region Private fields
         private Month _month = (Month)DateTime.Now.Month;
@@ -38,7 +38,7 @@ namespace ExpenseTracker.ViewModels
         #endregion
 
         #region Constructors
-        public StatisticsViewModel()
+        public ChartsViewModel()
         {
             Months = new ObservableCollection<Month>();
             Years = new ObservableCollection<int>();

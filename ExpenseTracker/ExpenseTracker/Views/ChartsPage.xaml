@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms"
-             x:Class="ExpenseTracker.Views.StatisticsPage"
+             x:Class="ExpenseTracker.Views.ChartsPage"
              Title="{Binding Title}">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical"
