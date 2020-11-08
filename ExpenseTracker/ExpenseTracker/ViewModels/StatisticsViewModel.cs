@@ -90,8 +90,12 @@ namespace ExpenseTracker.ViewModels
         {
             PlotModel = new PlotModel() { Background = OxyColors.Transparent };
 
-            CategoryAxis categoryAxisBottom = new CategoryAxis() { Position = AxisPosition.Bottom, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot };
-            LinearAxis linearAxis = new LinearAxis() { Position = AxisPosition.Left, MajorGridlineStyle = LineStyle.Dot, MinorGridlineStyle = LineStyle.Dot };
+            CategoryAxis categoryAxisBottom = new CategoryAxis() { 
+                Position = AxisPosition.Bottom, IsZoomEnabled = false, IsPanEnabled = false, 
+                MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot };
+            LinearAxis linearAxis = new LinearAxis() { 
+                Position = AxisPosition.Left, IsZoomEnabled = false, IsPanEnabled = false, 
+                MajorGridlineStyle = LineStyle.Dot, MinorGridlineStyle = LineStyle.Dot };
             ColumnSeries columnSeries = new ColumnSeries() { IsStacked = true, FillColor = OxyColor.Parse("#734b6d") };
 
             PlotModel.Axes.Add(categoryAxisBottom);
@@ -99,9 +103,11 @@ namespace ExpenseTracker.ViewModels
 
             if (Month == Month.All)
             {
-                PlotModel.Title = $"Top categories per month";
+                PlotModel.Title = $"Top categories per month (except income)";
 
-                CategoryAxis categoryAxisTop = new CategoryAxis() { Position = AxisPosition.Top, MajorGridlineStyle = LineStyle.None, MinorGridlineStyle = LineStyle.None };
+                CategoryAxis categoryAxisTop = new CategoryAxis() { 
+                    Position = AxisPosition.Top, IsZoomEnabled = false, IsPanEnabled = false, Angle = 50, 
+                    MajorGridlineStyle = LineStyle.None, MinorGridlineStyle = LineStyle.None };
                 PlotModel.Axes.Add(categoryAxisTop);
 
                 var topCategoriesPerMonthForYear = transactions.Where(t => t.Date.Year == Year)

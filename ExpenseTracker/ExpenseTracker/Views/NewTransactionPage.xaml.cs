@@ -21,6 +21,9 @@ namespace ExpenseTracker.Views
             BindingContext = _transactionsViewModel = transactionsViewModel;
 
             EntryDescription.Text = "No description";
+
+            DatePickerDate.MinimumDate = new DateTime(2020, 1, 1);
+            DatePickerDate.MaximumDate = new DateTime(DateTime.Now.Year, 12, 31);
         }
         #endregion
 
