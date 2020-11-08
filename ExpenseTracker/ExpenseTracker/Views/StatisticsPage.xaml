@@ -5,43 +5,45 @@
              x:Class="ExpenseTracker.Views.StatisticsPage"
              Title="{Binding Title}">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="FillAndExpand">
+        <StackLayout Orientation="Vertical"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand">
             <StackLayout Orientation="Horizontal"
-                 HorizontalOptions="FillAndExpand"
-                 Margin="15,15,15,0">
-                 <Picker x:Name="PickerMonth"
-                 Title="Month"
-                 HorizontalOptions="FillAndExpand"
-                 ItemsSource="{Binding Months}"
-                 SelectedItem="{Binding Month, Mode=TwoWay}"
-                 SelectedIndexChanged="FilterData">
-                 </Picker>
-                 <Picker x:Name="PickerYear"
-                 Title="Year"
-                 HorizontalOptions="FillAndExpand"
-                 ItemsSource="{Binding Years}"
-                 SelectedItem="{Binding Year, Mode=TwoWay}"
-                 SelectedIndexChanged="FilterData" />
+                         HorizontalOptions="FillAndExpand"
+                         Margin="15,15,15,0">
+                <Picker x:Name="PickerMonth"
+                        Title="Month"
+                        HorizontalOptions="FillAndExpand"
+                        ItemsSource="{Binding Months}"
+                        SelectedItem="{Binding Month, Mode=TwoWay}"
+                        SelectedIndexChanged="FilterData">
+                </Picker>
+                <Picker x:Name="PickerYear"
+                        Title="Year"
+                        HorizontalOptions="FillAndExpand"
+                        ItemsSource="{Binding Years}"
+                        SelectedItem="{Binding Year, Mode=TwoWay}"
+                        SelectedIndexChanged="FilterData" />
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          HorizontalOptions="CenterAndExpand"
                          Margin="15">
                 <Label Text="Balance:"
                        FontAttributes="Bold" />
-                <Label Text="{Binding Balance, Converter={StaticResource Valuta}}"
+                <Label Text="{Binding Balance, StringFormat='€{0:N}'}"
                        FontAttributes="Bold" />
                 <Label Text="|"
                        FontAttributes="Bold" />
                 <Label Text="Out:"
                        FontAttributes="Bold" />
-                <Label Text="{Binding Expenses, Converter={StaticResource Valuta}}"
+                <Label Text="{Binding Expenses, StringFormat='€{0:N}'}"
                        TextColor="IndianRed"
                        FontAttributes="Bold" />
                 <Label Text="|"
                        FontAttributes="Bold" />
                 <Label Text="In:"
                        FontAttributes="Bold" />
-                <Label Text="{Binding Income, Converter={StaticResource Valuta}}"
+                <Label Text="{Binding Income, StringFormat='€{0:N}'}"
                        TextColor="Green"
                        FontAttributes="Bold" />
             </StackLayout>

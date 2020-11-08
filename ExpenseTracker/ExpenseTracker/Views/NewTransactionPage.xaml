@@ -13,7 +13,10 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout Margin="15">
+        <StackLayout Orientation="Vertical"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand"
+                     Margin="15">
             <Label Text="Transaction type *"/>
             <Picker x:Name="PickerTransactionType" 
                     ItemsSource="{Binding TransactionTypes}"/>

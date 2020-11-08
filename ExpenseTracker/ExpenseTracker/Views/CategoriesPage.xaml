@@ -7,9 +7,10 @@
              x:Class="ExpenseTracker.Views.CategoriesPage"
              Title="{Binding Title}">
     <ContentPage.Content>
-        <StackLayout>
-            <StackLayout>
-                <StackLayout Orientation="Horizontal"
+        <StackLayout Orientation="Vertical"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand">
+            <StackLayout Orientation="Horizontal"
                              HorizontalOptions="FillAndExpand"
                              Margin="15,15,15,0">
                     <Picker x:Name="PickerMonth"
@@ -31,20 +32,20 @@
                              Margin="15">
                     <Label Text="Balance:"
                            FontAttributes="Bold" />
-                    <Label Text="{Binding Balance, Converter={StaticResource Valuta}}"
+                    <Label Text="{Binding Balance, StringFormat='€{0:N}'}"
                            FontAttributes="Bold" />
                     <Label Text="|"
                            FontAttributes="Bold" />
                     <Label Text="Out:"
                            FontAttributes="Bold" />
-                    <Label Text="{Binding Expenses, Converter={StaticResource Valuta}}"
+                    <Label Text="{Binding Expenses, StringFormat='€{0:N}'}"
                            TextColor="IndianRed"
                            FontAttributes="Bold" />
                     <Label Text="|"
                            FontAttributes="Bold" />
                     <Label Text="In:"
                            FontAttributes="Bold" />
-                    <Label Text="{Binding Income, Converter={StaticResource Valuta}}"
+                    <Label Text="{Binding Income, StringFormat='€{0:N}'}"
                            TextColor="Green"
                            FontAttributes="Bold" />
                 </StackLayout>
@@ -84,7 +85,7 @@
                                                Grid.Row="0"
                                                HorizontalOptions="Center"
                                                VerticalOptions="Center"
-                                               Text="{Binding Amount, Converter={StaticResource Valuta}}"
+                                               Text="{Binding Amount, StringFormat='€{0:N}'}"
                                                FontAttributes="Bold"
                                                TextColor="{Binding TextColor}" />
                                     </Grid>
@@ -98,6 +99,5 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </StackLayout>
-        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
