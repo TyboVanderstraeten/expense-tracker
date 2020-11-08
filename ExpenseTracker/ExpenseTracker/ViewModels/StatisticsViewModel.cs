@@ -88,12 +88,16 @@ namespace ExpenseTracker.ViewModels
 
         private async Task FilterPlotModel()
         {
+            PlotModel = new PlotModel() { Background = OxyColors.Transparent };
+
             CategoryAxis categoryAxisBottom = new CategoryAxis() { Position = AxisPosition.Bottom, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot };
             LinearAxis linearAxis = new LinearAxis() { Position = AxisPosition.Left, MajorGridlineStyle = LineStyle.Dot, MinorGridlineStyle = LineStyle.Dot };
-            ColumnSeries columnSeries = new ColumnSeries() { /*LabelFormatString = "{0}", LabelPlacement = LabelPlacement.Middle,*/ IsStacked = true, FillColor = OxyColor.Parse("#734b6d") };
-            PlotModel = new PlotModel() { Background = OxyColors.Transparent };
+            ColumnSeries columnSeries = new ColumnSeries() { IsStacked = true, FillColor = OxyColor.Parse("#734b6d") };
+
             PlotModel.Axes.Add(categoryAxisBottom);
             PlotModel.Axes.Add(linearAxis);
+
+            List<Transaction> transactions = await App.Database.GetTransactionsAsync();
 
             if (Month == Month.All)
             {
@@ -102,37 +106,33 @@ namespace ExpenseTracker.ViewModels
                 CategoryAxis categoryAxisTop = new CategoryAxis() { Position = AxisPosition.Top, MajorGridlineStyle = LineStyle.None, MinorGridlineStyle = LineStyle.None };
                 PlotModel.Axes.Add(categoryAxisTop);
 
-                var topCategoryPerMonthByYear =
-                     App.Database.GetTransactionsAsync()
-                     .Result
-                    .Where(t => t.Date.Year == Year)
-                    .GroupBy(t => t.Date.Month).Select(g => new
+                var topCategoriesPerMonthForYear = transactions.Where(t => t.Date.Year == Year)
+                    .GroupBy(t => t.Date.Month)
+                    .Select(g => new
                     {
                         Month = (Month)g.Key,
-                        Top =
-                        g.Where(t => t.TransactionType != TransactionType.Income)
+                        Top = g.Where(t => t.TransactionType != TransactionType.Income)
                         .GroupBy(t => t.TransactionType)
                         .OrderByDescending(g => g.Sum(t => t.Amount))
-                        .Select(g => new { Type = g.Key, Amount = g.Sum(t => t.Amount) })
+                        .Select(g => new { TransactionType = g.Key, Amount = g.Sum(t => t.Amount) })
                         .First()
                     })
-                    .Select(g => new { g.Month, g.Top.Type, g.Top.Amount })
+                    .Select(g => new { g.Month, g.Top.TransactionType, g.Top.Amount })
                     .ToList();
 
                 foreach (Month month in Months.Where(m => m != Month.All))
                 {
-                    if (topCategoryPerMonthByYear.Any(t => t.Month == month))
-                    {
-                        var t = topCategoryPerMonthByYear.Single(t => t.Month == month);
-                        categoryAxisBottom.Labels.Add(month.ToString().Substring(0, 3));
-                        categoryAxisTop.Labels.Add(t.Type.ToString());
-                        columnSeries.Items.Add(new ColumnItem(decimal.ToDouble(t.Amount)));
+                    categoryAxisBottom.Labels.Add(month.ToString().Substring(0, 3));
 
+                    if (topCategoriesPerMonthForYear.Any(t => t.Month == month))
+                    {
+                        var topCategoryForMonth = topCategoriesPerMonthForYear.Single(t => t.Month == month);
+                        categoryAxisTop.Labels.Add(topCategoryForMonth.TransactionType.ToString());
+                        columnSeries.Items.Add(new ColumnItem(decimal.ToDouble(topCategoryForMonth.Amount)));
                     }
                     else
                     {
-                        categoryAxisBottom.Labels.Add(month.ToString().Substring(0, 3));
-                        categoryAxisTop.Labels.Add("");
+                        categoryAxisTop.Labels.Add(string.Empty);
                         columnSeries.Items.Add(new ColumnItem(0));
                     }
                 }
@@ -143,18 +143,15 @@ namespace ExpenseTracker.ViewModels
             {
                 PlotModel.Title = $"Categories per month";
 
-                var categoriesForMonth =
-                     App.Database.GetTransactionsAsync()
-                     .Result
-                     .Where(t => t.Date.Month == (int)Month && t.Date.Year == Year)
+                var categoriesForMonth = transactions.Where(t => t.Date.Month == (int)Month && t.Date.Year == Year)
                      .GroupBy(t => t.TransactionType)
-                     .Select(g => new { Type = g.Key, Amount = g.Sum(t => t.Amount) })
+                     .Select(g => new { TransactionType = g.Key, Amount = g.Sum(t => t.Amount) })
                      .ToList();
 
-                foreach (var c in categoriesForMonth)
+                foreach (var category in categoriesForMonth)
                 {
-                    categoryAxisBottom.Labels.Add(c.Type.ToString());
-                    columnSeries.Items.Add(new ColumnItem(decimal.ToDouble(c.Amount)));
+                    categoryAxisBottom.Labels.Add(category.TransactionType.ToString());
+                    columnSeries.Items.Add(new ColumnItem(decimal.ToDouble(category.Amount)));
                 }
 
                 PlotModel.Series.Add(columnSeries);
