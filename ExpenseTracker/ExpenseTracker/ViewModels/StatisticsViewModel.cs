@@ -16,7 +16,6 @@ namespace ExpenseTracker.ViewModels
         private Month _month = (Month)DateTime.Now.Month;
         private int _year = DateTime.Now.Year;
 
-
         private decimal _balance;
         private decimal _expenses;
         private decimal _income;
@@ -84,39 +83,24 @@ namespace ExpenseTracker.ViewModels
             Income = transactions.Where(t => t.TransactionType == TransactionType.Income).Sum(t => t.Amount);
             Balance = Income - Expenses;
 
-            await DrawChart();
+            await FilterPlotModel();
         }
 
-        private async Task DrawChart()
+        private async Task FilterPlotModel()
         {
+            CategoryAxis xaxis = new CategoryAxis() { Position = AxisPosition.Bottom, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot };
+            LinearAxis yaxis = new LinearAxis() { Position = AxisPosition.Left, MajorGridlineStyle = LineStyle.Dot, MinorGridlineStyle = LineStyle.Dot };
+            ColumnSeries s1 = new ColumnSeries() { /*LabelFormatString = "{0}", LabelPlacement = LabelPlacement.Middle,*/ IsStacked = true, FillColor = OxyColor.Parse("#734b6d") };
+            Model = new PlotModel() { Background = OxyColors.Transparent };
+            Model.Axes.Add(xaxis);
+            Model.Axes.Add(yaxis);
+
             if (Month == Month.All)
             {
-                CategoryAxis xaxis = new CategoryAxis();
-                xaxis.Position = AxisPosition.Bottom;
-                xaxis.MajorGridlineStyle = LineStyle.Solid;
-                xaxis.MinorGridlineStyle = LineStyle.Dot;
+                Model.Title = $"Top categories per month";
 
-                CategoryAxis xaxis2 = new CategoryAxis();
-                xaxis2.Position = AxisPosition.Top;
-                xaxis2.MajorGridlineStyle = LineStyle.None;
-                xaxis2.MinorGridlineStyle = LineStyle.None;
-
-
-
-                LinearAxis yaxis = new LinearAxis();
-                yaxis.Position = AxisPosition.Left;
-                yaxis.MajorGridlineStyle = LineStyle.Dot;
-                xaxis.MinorGridlineStyle = LineStyle.Dot;
-
-                ColumnSeries s1 = new ColumnSeries();
-                s1.LabelFormatString = "{0}";
-                s1.LabelPlacement = LabelPlacement.Middle;
-                s1.IsStacked = true;
-                s1.FillColor = OxyColor.Parse("#734b6d");
-
-                List<Transaction> transactions = await App.Database.GetTransactionsAsync();
-
-                //transactions = transactions.Where(t => t.Date.Year == Year).ToList();
+                CategoryAxis xaxis2 = new CategoryAxis() { Position = AxisPosition.Top, MajorGridlineStyle = LineStyle.None, MinorGridlineStyle = LineStyle.None };
+                Model.Axes.Add(xaxis2);
 
                 var topCategoryPerMonthByYear =
                      App.Database.GetTransactionsAsync()
@@ -153,33 +137,11 @@ namespace ExpenseTracker.ViewModels
                     }
                 }
 
-
-                Model = new PlotModel();
-                Model.Title = $"Top categories per month";
-                Model.Background = OxyColors.Transparent;
-
-                Model.Axes.Add(xaxis);
-                Model.Axes.Add(xaxis2);
-                Model.Axes.Add(yaxis);
                 Model.Series.Add(s1);
             }
             else
             {
-                CategoryAxis xaxis = new CategoryAxis();
-                xaxis.Position = AxisPosition.Bottom;
-                xaxis.MajorGridlineStyle = LineStyle.Solid;
-                xaxis.MinorGridlineStyle = LineStyle.Dot;
-
-                LinearAxis yaxis = new LinearAxis();
-                yaxis.Position = AxisPosition.Left;
-                yaxis.MajorGridlineStyle = LineStyle.Dot;
-                xaxis.MinorGridlineStyle = LineStyle.Dot;
-
-                ColumnSeries s1 = new ColumnSeries();
-                s1.LabelFormatString = "{0}";
-                s1.LabelPlacement = LabelPlacement.Middle;
-                s1.IsStacked = true;
-                s1.FillColor = OxyColor.Parse("#734b6d");
+                Model.Title = $"Categories per month";
 
                 var categoriesForMonth =
                      App.Database.GetTransactionsAsync()
@@ -195,13 +157,6 @@ namespace ExpenseTracker.ViewModels
                     s1.Items.Add(new ColumnItem(decimal.ToDouble(c.Amount)));
                 }
 
-
-                Model = new PlotModel();
-                Model.Title = $"Categories per month";
-                Model.Background = OxyColors.Transparent;
-
-                Model.Axes.Add(xaxis);
-                Model.Axes.Add(yaxis);
                 Model.Series.Add(s1);
             }
         }
