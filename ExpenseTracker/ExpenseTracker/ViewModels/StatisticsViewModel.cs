@@ -70,6 +70,8 @@ namespace ExpenseTracker.ViewModels
         {
             List<Transaction> transactions = await App.Database.GetTransactionsAsync();
 
+            FilterPlotModel(transactions);
+
             if (Month == Month.All)
             {
                 transactions = transactions.Where(t => t.Date.Year == Year).ToList();
@@ -82,11 +84,9 @@ namespace ExpenseTracker.ViewModels
             Expenses = transactions.Where(t => t.TransactionType != TransactionType.Income).Sum(t => t.Amount);
             Income = transactions.Where(t => t.TransactionType == TransactionType.Income).Sum(t => t.Amount);
             Balance = Income - Expenses;
-
-            await FilterPlotModel();
         }
 
-        private async Task FilterPlotModel()
+        private void FilterPlotModel(ICollection<Transaction> transactions)
         {
             PlotModel = new PlotModel() { Background = OxyColors.Transparent };
 
@@ -96,8 +96,6 @@ namespace ExpenseTracker.ViewModels
 
             PlotModel.Axes.Add(categoryAxisBottom);
             PlotModel.Axes.Add(linearAxis);
-
-            List<Transaction> transactions = await App.Database.GetTransactionsAsync();
 
             if (Month == Month.All)
             {
