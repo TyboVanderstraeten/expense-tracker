@@ -94,10 +94,12 @@ namespace ExpenseTracker.ViewModels
                 xaxis.MajorGridlineStyle = LineStyle.Solid;
                 xaxis.MinorGridlineStyle = LineStyle.Dot;
 
-                foreach (Month month in Months)
-                {
-                    xaxis.Labels.Add(month.ToString().Substring(0, 3));
-                }
+                CategoryAxis xaxis2 = new CategoryAxis();
+                xaxis2.Position = AxisPosition.Top;
+                xaxis2.MajorGridlineStyle = LineStyle.None;
+                xaxis2.MinorGridlineStyle = LineStyle.None;
+
+
 
                 LinearAxis yaxis = new LinearAxis();
                 yaxis.Position = AxisPosition.Left;
@@ -128,15 +130,20 @@ namespace ExpenseTracker.ViewModels
                     .Select(g => new { g.Month, g.Top.Type, g.Top.Amount })
                     .ToList();
 
-                foreach (Month month in Months)
+                foreach (Month month in Months.Where(m=>m!=Month.All))
                 {
                     if (topCategoryPerMonthByYear.Any(t => t.Month == month))
                     {
                         var t = topCategoryPerMonthByYear.Single(t => t.Month == month);
+                        xaxis.Labels.Add(month.ToString().Substring(0, 3));
+                        xaxis2.Labels.Add(t.Type.ToString());
                         s1.Items.Add(new ColumnItem(decimal.ToDouble(t.Amount)));
+                        
                     }
                     else
                     {
+                        xaxis.Labels.Add(month.ToString().Substring(0, 3));
+                        xaxis2.Labels.Add("");
                         s1.Items.Add(new ColumnItem(0));
                     }
                 }
@@ -147,6 +154,7 @@ namespace ExpenseTracker.ViewModels
                 Model.Background = OxyColors.Transparent;
 
                 Model.Axes.Add(xaxis);
+                Model.Axes.Add(xaxis2);
                 Model.Axes.Add(yaxis);
                 Model.Series.Add(s1);
             }
