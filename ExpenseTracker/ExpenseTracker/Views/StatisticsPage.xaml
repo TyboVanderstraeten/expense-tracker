@@ -45,7 +45,7 @@
                        TextColor="Green"
                        FontAttributes="Bold" />
             </StackLayout>
-            <oxy:PlotView Model="{Binding Model}"
+            <oxy:PlotView Model="{Binding PlotModel}"
                           VerticalOptions="FillAndExpand" />
         </StackLayout>
     </ContentPage.Content>
