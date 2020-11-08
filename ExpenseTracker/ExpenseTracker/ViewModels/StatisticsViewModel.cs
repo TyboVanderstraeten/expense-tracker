@@ -108,6 +108,7 @@ namespace ExpenseTracker.ViewModels
 
                 ColumnSeries s1 = new ColumnSeries();
                 s1.IsStacked = true;
+                s1.FillColor = OxyColor.Parse("#734b6d");
 
                 List<Transaction> transactions = await App.Database.GetTransactionsAsync();
 
@@ -155,6 +156,45 @@ namespace ExpenseTracker.ViewModels
 
                 Model.Axes.Add(xaxis);
                 Model.Axes.Add(xaxis2);
+                Model.Axes.Add(yaxis);
+                Model.Series.Add(s1);
+            }
+            else
+            {
+                CategoryAxis xaxis = new CategoryAxis();
+                xaxis.Position = AxisPosition.Bottom;
+                xaxis.MajorGridlineStyle = LineStyle.Solid;
+                xaxis.MinorGridlineStyle = LineStyle.Dot;
+
+                LinearAxis yaxis = new LinearAxis();
+                yaxis.Position = AxisPosition.Left;
+                yaxis.MajorGridlineStyle = LineStyle.Dot;
+                xaxis.MinorGridlineStyle = LineStyle.Dot;
+
+                ColumnSeries s1 = new ColumnSeries();
+                s1.IsStacked = true;
+                s1.FillColor = OxyColor.Parse("#734b6d");
+
+                var categoriesForMonth =
+                     App.Database.GetTransactionsAsync()
+                     .Result
+                     .Where(t => t.Date.Month == (int)Month && t.Date.Year == Year)
+                     .GroupBy(t => t.TransactionType)
+                     .Select(g => new { Type = g.Key, Amount = g.Sum(t => t.Amount) })
+                     .ToList();
+
+                foreach (var c in categoriesForMonth)
+                {
+                    xaxis.Labels.Add(c.Type.ToString());
+                    s1.Items.Add(new ColumnItem(decimal.ToDouble(c.Amount)));
+                }
+
+
+                Model = new PlotModel();
+                Model.Title = $"Categories per month";
+                Model.Background = OxyColors.Transparent;
+
+                Model.Axes.Add(xaxis);
                 Model.Axes.Add(yaxis);
                 Model.Series.Add(s1);
             }
